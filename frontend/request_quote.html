@@ -18,10 +18,11 @@
         body { background-color: var(--bg-color); color: var(--text-main); display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
         .container { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; width: 100%; max-width: 600px; padding: 40px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
         h2 { font-size: 24px; margin-bottom: 8px; color: var(--text-main); }
-        p { color: var(--text-muted); font-size: 14px; margin-bottom: 24px; }
+        p { color: var(--text-muted); font-size: 14px; margin-bottom: 24px; line-height: 1.5; }
         .form-group { margin-bottom: 20px; }
         label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: var(--text-main); }
         input, select, textarea { width: 100%; padding: 12px 16px; background-color: var(--bg-color); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-main); font-size: 14px; transition: border-color 0.2s; }
+        input::placeholder, textarea::placeholder { color: #64748b; }
         input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); }
         textarea { resize: vertical; min-height: 120px; }
         button { width: 100%; background-color: var(--primary); color: white; border: none; padding: 14px; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: background-color 0.2s; }
@@ -31,7 +32,7 @@
 <body>
     <div class="container">
         <h2>Request a Project Quote</h2>
-        <p>Tell us about your project requirements and scope to get a customized estimate.</p>
+        <p>Tell us about your project scope and specifications for a customized estimate.</p>
         <form action="#" method="POST">
             <div class="form-group">
                 <label for="name">Your Name / Company Name</label>
@@ -48,22 +49,13 @@
                     <option value="custom-software">Custom Web/App Development</option>
                     <option value="ai-ml">AI / Machine Learning Solutions</option>
                     <option value="iot-dev">IoT & Hardware Prototyping</option>
-                    <option value="data-pipeline">Data Analytics Pipeline</option>
                 </select>
             </div>
             <div class="form-group">
-                <label for="budget">Estimated Budget Range (INR)</label>
-                <select id="budget" name="budget">
-                    <option value="tier-1">₹50,000 - ₹1,00,000</option>
-                    <option value="tier-2">₹1,00,000 - ₹2,50,000</option>
-                    <option value="tier-3">₹2,50,000+</option>
-                </select>
+                <label for="details">Project Details</label>
+                <textarea id="details" name="details" placeholder="Describe your requirements..." required></textarea>
             </div>
-            <div class="form-group">
-                <label for="details">Project Details & Scope</label>
-                <textarea id="details" name="details" placeholder="Describe what you want to build, key features, and expected timelines..." required></textarea>
-            </div>
-            <button type="submit">Submit Request</button>
+            <button type="submit">Submit Request &rarr;</button>
         </form>
     </div>
 </body>
