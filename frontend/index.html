@@ -165,8 +165,9 @@
   .nav-cta{ font-size:0.85rem; padding:10px 20px; }
   @media (max-width:860px){ .navlinks{display:none;} .nav-cta{display:none;} }
 
-  .hamburger{ display:none; position:relative; z-index:210; width:36px; height:36px; background:none; border:none; cursor:pointer; padding:0; }
-  @media (max-width:860px){ .hamburger{ display:block; } }
+  .hamburger {
+    display: none !important; /* Force it to stay hidden everywhere */
+  }
   .hamburger .bar{ position:absolute; left:4px; width:28px; height:2.5px; background:var(--ink); border-radius:3px; transition:transform .35s ease, opacity .25s ease, top .35s ease, background .3s ease; }
   .hamburger .bar:nth-child(1){ top:11px; }
   .hamburger .bar:nth-child(2){ top:17.5px; }
