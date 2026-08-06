@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Join the Team — Hidden Gems Society</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FBFAF7; --paper-2:#F5F4EF; --wash-sapphire:#F2F6FD; --card:#FFFFFF;
+    --ink:#16141F; --ink-soft:#5C5768; --ink-faint: rgba(22,20,31,0.55); --line: rgba(22,20,31,0.09);
+    --sapphire:#2E63E0; --emerald:#0E9F76; --amethyst:#7C4DFF; --amber:#D98F1E; --coral:#E8604B;
+    --pink:#F0429A; --sunshine:#FFC93C; --teal:#12B7B0;
+    --font-display:'Sora', sans-serif; --font-body:'Inter', sans-serif; --font-mono:'JetBrains Mono', monospace;
+    color-scheme:light;
+  }
+  html[data-theme="dark"]{
+    --paper:#100E1A; --paper-2:#171425; --wash-sapphire:#161A2C; --card:#1B1830;
+    --ink:#F3F1FA; --ink-soft:#B4AFC6; --ink-faint: rgba(243,241,250,0.55); --line: rgba(255,255,255,0.1);
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper); color:var(--ink); font-family:var(--font-body); overflow-x:hidden;
+    line-height:1.6; font-size:16px; transition:background .4s ease, color .4s ease;
+  }
+  a{color:inherit; text-decoration:none;}
+  .wrap{ max-width:900px; margin:0 auto; padding:0 32px; }
+  @media (max-width:640px){ .wrap{padding:0 20px;} }
+  a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible{ outline:2px solid var(--sapphire); outline-offset:3px; border-radius:4px; }
+
+  @keyframes floaty{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-14px);} }
+  @keyframes blobMorph{
+    0%,100%{ border-radius:42% 58% 65% 35% / 45% 40% 60% 55%; transform:rotate(0deg) scale(1); }
+    33%{ border-radius:63% 37% 40% 60% / 55% 65% 35% 45%; transform:rotate(8deg) scale(1.05); }
+    66%{ border-radius:35% 65% 55% 45% / 40% 55% 45% 60%; transform:rotate(-6deg) scale(0.97); }
+  }
+  @keyframes popIn{
+    0%{ transform:scale(0.4) translateY(10px); opacity:0; }
+    70%{ transform:scale(1.08) translateY(-2px); opacity:1; }
+    100%{ transform:scale(1) translateY(0); opacity:1; }
+  }
+  @keyframes confettiFall{ 0%{ transform:translateY(-10vh) rotate(0deg); opacity:1; } 100%{ transform:translateY(110vh) rotate(720deg); opacity:0.9; } }
+  @keyframes gradientShift{ 0%,100%{ background-position:0% 50%; } 50%{ background-position:100% 50%; } }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important; }
+  }
+
+  .scroll-progress{
+    position:fixed; top:0; left:0; height:4px; width:0%; z-index:999;
+    background:linear-gradient(90deg, var(--sapphire), var(--emerald), var(--amethyst), var(--pink), var(--amber));
+    background-size:300% 100%; animation:gradientShift 6s linear infinite; transition:width .1s linear;
+  }
+
+  /* ---------- BLOBS ---------- */
+  .blob{ position:fixed; filter:blur(2px); opacity:0.14; z-index:-1; pointer-events:none; animation:blobMorph 12s ease-in-out infinite, floaty 8s ease-in-out infinite; }
+  .blob-1{ top:-60px; left:-80px; width:280px; height:280px; background:linear-gradient(135deg, var(--sapphire), var(--teal)); }
+  .blob-2{ bottom:-100px; right:-60px; width:320px; height:320px; background:linear-gradient(135deg, var(--pink), var(--amber)); animation-delay:2s, 1.5s; }
+
+  /* ---------- NAV ---------- */
+  .top-nav{ padding:20px 0; }
+  .top-nav .wrap{ display:flex; align-items:center; justify-content:space-between; }
+  .brand{ display:flex; align-items:center; gap:10px; font-family:var(--font-display); font-weight:700; font-size:1.1rem; }
+  .brand svg{ width:22px; height:22px; color:var(--sapphire); }
+  .back-link{ font-family:var(--font-body); font-weight:600; font-size:0.88rem; color:var(--ink-soft); display:flex; align-items:center; gap:6px; transition:color .2s ease; }
+  .back-link:hover{ color:var(--sapphire); }
+
+  /* ---------- HERO ---------- */
+  .reg-hero{ padding:36px 0 12px; text-align:center; }
+  .reg-eyebrow{
+    font-family:var(--font-mono); font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em; font-weight:600;
+    color:var(--emerald); display:inline-flex; align-items:center; gap:8px; justify-content:center;
+  }
+  .reg-eyebrow::before{ content:''; width:6px; height:6px; background:currentColor; transform:rotate(45deg); border-radius:1px; }
+  .reg-hero h1{ font-family:var(--font-display); font-size:clamp(1.9rem,4vw,2.6rem); font-weight:700; margin-top:12px; letter-spacing:-0.01em; }
+  .reg-hero p{ color:var(--ink-soft); max-width:60ch; margin:14px auto 0; }
+
+  .trust-row{ display:flex; justify-content:center; gap:28px; flex-wrap:wrap; margin-top:28px; }
+  .trust-item{ display:flex; align-items:center; gap:8px; font-family:var(--font-mono); font-size:0.78rem; color:var(--ink-soft); font-weight:600; }
+  .trust-item svg{ width:16px; height:16px; color:var(--emerald); }
+
+  /* ---------- WIZARD ---------- */
+  .wizard-shell{ padding:48px 0 100px; }
+  .progress-track{ display:flex; align-items:center; gap:6px; margin-bottom:38px; }
+  .progress-step{ flex:1; display:flex; flex-direction:column; align-items:center; gap:8px; position:relative; }
+  .progress-step .dot{
+    width:34px; height:34px; border-radius:50%; background:var(--card); border:2px solid var(--line);
+    display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-weight:700; font-size:0.85rem;
+    color:var(--ink-soft); transition:all .35s ease; z-index:1;
+  }
+  .progress-step.active .dot{ border-color:var(--sapphire); color:var(--sapphire); background:var(--wash-sapphire); }
+  .progress-step.done .dot{ border-color:var(--emerald); background:var(--emerald); color:#fff; }
+  .progress-step .lbl{ font-family:var(--font-mono); font-size:0.65rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--ink-faint); text-align:center; }
+  .progress-step.active .lbl{ color:var(--sapphire); }
+  .progress-line{ position:absolute; top:17px; left:calc(50% + 24px); right:calc(-50% + 24px); height:2px; background:var(--line); z-index:0; }
+  .progress-step:last-child .progress-line{ display:none; }
+  .progress-step.done .progress-line{ background:var(--emerald); }
+
+  .surface{
+    background:var(--card); border:1px solid var(--line); border-radius:22px; padding:40px;
+    box-shadow:0 1px 2px rgba(22,20,31,0.03), 0 14px 32px -20px rgba(22,20,31,0.16);
+  }
+  @media (max-width:640px){ .surface{ padding:26px 22px; } }
+
+  .form-step{ display:none; }
+  .form-step.active{ display:block; animation:popIn .4s ease; }
+  .step-heading{ font-family:var(--font-display); font-size:1.35rem; font-weight:700; margin-bottom:6px; }
+  .step-sub{ color:var(--ink-soft); font-size:0.92rem; margin-bottom:28px; }
+
+  .field-grid{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  @media (max-width:640px){ .field-grid{ grid-template-columns:1fr; } }
+  .field{ display:flex; flex-direction:column; gap:7px; }
+  .field.full{ grid-column:1 / -1; }
+  .field label{ font-size:0.82rem; font-weight:600; color:var(--ink-soft); }
+  .field label .req{ color:var(--coral); }
+  .field input, .field select, .field textarea{
+    font-family:var(--font-body); font-size:0.94rem; padding:12px 14px; border-radius:11px; border:1.5px solid var(--line);
+    background:var(--paper); color:var(--ink); resize:vertical; width:100%;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus{ outline:none; border-color:var(--sapphire); }
+  .field small{ color:var(--ink-faint); font-size:0.76rem; }
+  .field.invalid input, .field.invalid select, .field.invalid textarea{ border-color:var(--coral); }
+  .field-error{ color:var(--coral); font-size:0.76rem; display:none; }
+  .field.invalid .field-error{ display:block; }
+
+  .check-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:6px; }
+  @media (max-width:640px){ .check-grid{ grid-template-columns:1fr; } }
+  .check-item{
+    display:flex; align-items:flex-start; gap:10px; padding:13px 16px; border-radius:12px; border:1.5px solid var(--line);
+    background:var(--paper); cursor:pointer; transition:all .2s ease; font-size:0.9rem; font-weight:600;
+  }
+  .check-item:hover{ border-color:var(--sapphire); }
+  .check-item input{ margin-top:2px; accent-color:var(--sapphire); width:16px; height:16px; flex-shrink:0; }
+  .check-item.checked{ border-color:var(--sapphire); background:var(--wash-sapphire); }
+
+  .wizard-nav{ display:flex; justify-content:space-between; align-items:center; margin-top:34px; gap:14px; }
+  .btn{
+    font-family:var(--font-display); font-weight:600; font-size:0.92rem; padding:13px 26px; border-radius:100px;
+    display:inline-flex; align-items:center; gap:8px; border:none; cursor:pointer; transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .btn:hover{ transform:translateY(-2px); }
+  .btn-primary{ background:var(--sapphire); color:#fff; box-shadow:0 10px 26px -10px rgba(46,99,224,0.55); }
+  .btn-emerald{ background:var(--emerald); color:#fff; box-shadow:0 10px 26px -10px rgba(14,159,118,0.5); }
+  .btn-ghost{ background:var(--card); color:var(--ink); border:1.5px solid var(--line); }
+  .btn-ghost:hover{ border-color:var(--ink); }
+
+  /* ---------- REVIEW STEP ---------- */
+  .review-block{ border:1.5px solid var(--line); border-radius:14px; padding:18px 20px; margin-bottom:14px; }
+  .review-block h4{ font-family:var(--font-display); font-size:0.95rem; font-weight:700; margin-bottom:10px; color:var(--sapphire); }
+  .review-row{ display:flex; justify-content:space-between; gap:14px; padding:5px 0; font-size:0.88rem; border-bottom:1px dashed var(--line); }
+  .review-row:last-child{ border-bottom:none; }
+  .review-row .k{ color:var(--ink-soft); flex-shrink:0; }
+  .review-row .v{ font-weight:600; text-align:right; }
+  .consent-row{ display:flex; align-items:flex-start; gap:10px; margin-top:20px; font-size:0.88rem; color:var(--ink-soft); }
+  .consent-row input{ margin-top:3px; accent-color:var(--sapphire); width:16px; height:16px; flex-shrink:0; }
+
+  /* ---------- SUCCESS ---------- */
+  .success-screen{ display:none; text-align:center; padding:20px 0; }
+  .success-screen.active{ display:block; animation:popIn .5s ease; }
+  .success-badge{
+    width:76px; height:76px; border-radius:50%; background:var(--wash-sapphire); margin:0 auto 20px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .success-badge svg{ width:36px; height:36px; color:var(--emerald); }
+  .success-screen h3{ font-family:var(--font-display); font-size:1.5rem; font-weight:700; }
+  .success-screen p{ color:var(--ink-soft); margin:12px auto 26px; max-width:48ch; }
+  .success-actions{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+
+  .confetti-piece{ position:fixed; top:-20px; z-index:400; pointer-events:none; border-radius:2px; animation:confettiFall linear forwards; }
+</style>
+</head>
+<body>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+
+<nav class="top-nav">
+  <div class="wrap">
+    <div class="brand">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M4 8L8 3H16L20 8L12 21L4 8Z"/></svg>
+      Hidden Gems
+    </div>
+    <a href="index.html" class="back-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
+      Back to Home
+    </a>
+  </div>
+</nav>
+
+<header class="reg-hero">
+  <div class="wrap">
+    <span class="reg-eyebrow">For Students &amp; Creators</span>
+    <h1>Join the Core Team</h1>
+    <p>Apply for internships, social media roles, and operational positions. Help us build the community while gaining real-world, hands-on experience. This takes about 2 minutes.</p>
+    <div class="trust-row">
+      <span class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Real-World Projects</span>
+      <span class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Direct Mentorship</span>
+      <span class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Verified Certificates</span>
+    </div>
+  </div>
+</header>
+
+<div class="wizard-shell">
+  <div class="wrap">
+
+    <div class="progress-track" id="progressTrack">
+      <div class="progress-step active" data-step="1"><div class="dot">1</div><div class="lbl">Details</div><div class="progress-line"></div></div>
+      <div class="progress-step" data-step="2"><div class="dot">2</div><div class="lbl">Role</div><div class="progress-line"></div></div>
+      <div class="progress-step" data-step="3"><div class="dot">3</div><div class="lbl">Portfolio</div><div class="progress-line"></div></div>
+      <div class="progress-step" data-step="4"><div class="dot">4</div><div class="lbl">Review</div><div class="progress-line"></div></div>
+    </div>
+
+    <div class="surface" id="formSurface">
+      <form id="regForm" novalidate>
+
+        <!-- STEP 1 — PERSONAL DETAILS -->
+        <div class="form-step active" data-step="1">
+          <div class="step-heading">Personal Details</div>
+          <div class="step-sub">Tell us who you are and where you're currently studying or working.</div>
+          <div class="field-grid">
+            <div class="field full">
+              <label>Full Name <span class="req">*</span></label>
+              <input type="text" id="appName" placeholder="e.g. John Doe" required>
+              <div class="field-error">Please enter your full name.</div>
+            </div>
+            <div class="field">
+              <label>Email Address <span class="req">*</span></label>
+              <input type="email" id="appEmail" placeholder="you@email.com" required>
+              <div class="field-error">Please enter a valid email.</div>
+            </div>
+            <div class="field">
+              <label>Phone / WhatsApp <span class="req">*</span></label>
+              <input type="tel" id="appPhone" placeholder="+91 98765 43210" required>
+              <div class="field-error">Please enter your contact number.</div>
+            </div>
+            <div class="field full">
+              <label>College / University / Company <span class="req">*</span></label>
+              <input type="text" id="appCollege" placeholder="e.g. Vignan Institute of Technology" required>
+              <div class="field-error">Please enter your current institution or company.</div>
+            </div>
+            <div class="field">
+              <label>Degree / Major (if applicable)</label>
+              <input type="text" id="appMajor" placeholder="e.g. B.Tech Computer Science">
+            </div>
+            <div class="field">
+              <label>Year of Study / Graduation</label>
+              <select id="appYear">
+                <option value="">Select year…</option>
+                <option>1st Year</option>
+                <option>2nd Year</option>
+                <option>3rd Year</option>
+                <option>4th Year</option>
+                <option>Recently Graduated</option>
+                <option>Working Professional</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label>City & State <span class="req">*</span></label>
+              <input type="text" id="appCity" placeholder="e.g. Hyderabad, Telangana" required>
+              <div class="field-error">Location is required.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 2 — ROLE & INTERESTS -->
+        <div class="form-step" data-step="2">
+          <div class="step-heading">Role &amp; Interests</div>
+          <div class="step-sub">What kind of role are you looking for? Select all areas that fit your skills.</div>
+
+          <label style="font-size:0.85rem; font-weight:700; color:var(--ink); display:block; margin-bottom:10px;">Select Roles <span class="req">*</span></label>
+          <div class="check-grid" id="rolesGrid">
+            <label class="check-item"><input type="checkbox" value="Social Media Manager">Social Media Manager</label>
+            <label class="check-item"><input type="checkbox" value="Video Editor / Animator">Video Editor / Animator</label>
+            <label class="check-item"><input type="checkbox" value="Graphic Designer">Graphic Designer</label>
+            <label class="check-item"><input type="checkbox" value="Content Writer / Copywriter">Content Writer / Copywriter</label>
+            <label class="check-item"><input type="checkbox" value="Web Developer (Frontend/Backend)">Web Developer</label>
+            <label class="check-item"><input type="checkbox" value="Event Coordinator / Operations">Event Coordinator</label>
+            <label class="check-item"><input type="checkbox" value="Community Manager">Community Manager</label>
+            <label class="check-item"><input type="checkbox" value="UI/UX Designer">UI/UX Designer</label>
+          </div>
+          <div class="field-error" id="rolesError" style="margin-top:8px;">Please select at least one role.</div>
+
+          <div class="field-grid" style="margin-top:24px;">
+            <div class="field">
+              <label>Availability <span class="req">*</span></label>
+              <select id="appAvailability" required>
+                <option value="">Select availability…</option>
+                <option>Part-time (10-15 hrs/week)</option>
+                <option>Full-time Intern (40 hrs/week)</option>
+                <option>Weekends Only</option>
+                <option>Project-based / Freelance</option>
+              </select>
+              <div class="field-error">Please select your availability.</div>
+            </div>
+            <div class="field">
+              <label>Duration</label>
+              <select id="appDuration">
+                <option value="">Select duration…</option>
+                <option>1–3 months</option>
+                <option>3–6 months</option>
+                <option>Long-term</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 3 — PORTFOLIO & LINKS -->
+        <div class="form-step" data-step="3">
+          <div class="step-heading">Experience &amp; Portfolio</div>
+          <div class="step-sub">Show us what you can do. Links to your past work speak louder than resumes.</div>
+
+          <div class="field-grid">
+            <div class="field full">
+              <label>LinkedIn Profile URL</label>
+              <input type="url" id="appLinkedin" placeholder="https://linkedin.com/in/yourprofile">
+            </div>
+            <div class="field full">
+              <label>Portfolio / GitHub / Google Drive Link</label>
+              <input type="url" id="appPortfolio" placeholder="Link to your designs, videos, code, or writing">
+            </div>
+            <div class="field full" style="margin-top:10px;">
+              <label>Why do you want to join Hidden Gems? <span class="req">*</span></label>
+              <textarea id="appWhy" rows="4" placeholder="Tell us briefly about your passion, past experience, or what you hope to learn..." required></textarea>
+              <div class="field-error">Please tell us a bit about why you want to join.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 4 — REVIEW & SUBMIT -->
+        <div class="form-step" data-step="4">
+          <div class="step-heading">Review &amp; Submit</div>
+          <div class="step-sub">Double-check your details before sending your application.</div>
+
+          <div id="reviewContainer"></div>
+
+          <div class="consent-row">
+            <input type="checkbox" id="consentCheck">
+            <label for="consentCheck">I confirm the information provided is accurate and consent to being contacted regarding this application.</label>
+          </div>
+        </div>
+
+      </form>
+
+      <div class="wizard-nav" id="wizardNav">
+        <button type="button" class="btn btn-ghost" id="btnBack" style="visibility:hidden;">← Back</button>
+        <button type="button" class="btn btn-primary" id="btnNext">Continue →</button>
+      </div>
+    </div>
+
+    <!-- SUCCESS SCREEN -->
+    <div class="surface success-screen" id="successScreen">
+      <div class="success-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+      </div>
+      <h3>Application ready to send!</h3>
+      <p>Choose how you'd like to submit — your details are pre-filled either way, so it just takes one tap to apply.</p>
+      <div class="success-actions">
+        <button type="button" class="btn btn-emerald" id="sendWhatsAppReg">Send via WhatsApp →</button>
+        <button type="button" class="btn btn-ghost" id="sendEmailReg">Send via Email</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script type="module">
+  import { submitInternApplication } from './supabase-client.js';
+
+  // EDIT THESE TWO LINES WITH YOUR REAL CONTACT INFO
+  const HOST_CONFIG = {
+    whatsappNumber: '+919494608408', // country code + number, no + no spaces
+    email: 'hiddengemssocietyngo@gmail.com'
+  };
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // scroll progress bar
+  const scrollProgress = document.getElementById('scrollProgress');
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    if(scrollProgress) scrollProgress.style.width = pct + '%';
+  }, { passive:true });
+
+  // theme
+  (function(){
+    try{
+      const saved = localStorage.getItem('hg-theme');
+      if(saved) document.documentElement.setAttribute('data-theme', saved);
+    }catch(e){}
+  })();
+
+  // checkbox visual state
+  document.querySelectorAll('.check-item input').forEach(cb => {
+    cb.addEventListener('change', () => cb.closest('.check-item').classList.toggle('checked', cb.checked));
+  });
+
+  const TOTAL_STEPS = 4;
+  let currentStep = 1;
+  const steps = document.querySelectorAll('.form-step');
+  const progressSteps = document.querySelectorAll('.progress-step');
+  const btnNext = document.getElementById('btnNext');
+  const btnBack = document.getElementById('btnBack');
+  const formSurface = document.getElementById('formSurface');
+  const successScreen = document.getElementById('successScreen');
+
+  // Define required fields per step for the Intern Application
+  const requiredByStep = {
+    1: ['appName','appEmail','appPhone','appCollege','appCity'],
+    2: ['appAvailability'],
+    3: ['appWhy'],
+    4: []
+  };
+
+  function validateStep(step){
+    let valid = true;
+    (requiredByStep[step] || []).forEach(id => {
+      const el = document.getElementById(id);
+      const field = el.closest('.field');
+      let ok = el.value.trim().length > 0;
+      if(id === 'appEmail' && ok){ ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim()); }
+      field.classList.toggle('invalid', !ok);
+      if(!ok) valid = false;
+    });
+    
+    if(step === 2){
+      const anyChecked = Array.from(document.querySelectorAll('#rolesGrid input')).some(c => c.checked);
+      document.getElementById('rolesError').style.display = anyChecked ? 'none' : 'block';
+      if(!anyChecked) valid = false;
+    }
+    return valid;
+  }
+
+  function showStep(step){
+    steps.forEach(s => s.classList.toggle('active', Number(s.dataset.step) === step));
+    progressSteps.forEach(p => {
+      const n = Number(p.dataset.step);
+      p.classList.toggle('active', n === step);
+      p.classList.toggle('done', n < step);
+    });
+    btnBack.style.visibility = step === 1 ? 'hidden' : 'visible';
+    btnNext.textContent = step === TOTAL_STEPS ? 'Review Complete — Apply →' : 'Continue →';
+    if(step === TOTAL_STEPS) renderReview();
+    window.scrollTo({ top: formSurface.getBoundingClientRect().top + window.scrollY - 100, behavior: reduceMotion ? 'auto' : 'smooth' });
+  }
+
+  btnNext.addEventListener('click', async () => {
+    if(!validateStep(currentStep)) return;
+
+    if(currentStep < TOTAL_STEPS){
+      currentStep++;
+      showStep(currentStep);
+    } else {
+      if(!document.getElementById('consentCheck').checked){
+        alert('Please check the consent box to proceed.');
+        return;
+      }
+
+      const originalText = btnNext.textContent;
+      btnNext.textContent = 'Submitting...';
+      btnNext.disabled = true;
+
+      const formData = gatherData();
+      const result = await submitInternApplication(formData);
+
+      btnNext.textContent = originalText;
+      btnNext.disabled = false;
+
+      if(result.success){
+        formSurface.style.display = 'none';
+        successScreen.classList.add('active');
+        fireConfetti(window.innerWidth / 2, 160, 50);
+      } else {
+        alert('Error submitting application: ' + result.error);
+      }
+    }
+  });
+  
+  btnBack.addEventListener('click', () => {
+    if(currentStep > 1){ currentStep--; showStep(currentStep); }
+  });
+
+  function getChecked(selector){
+    return Array.from(document.querySelectorAll(selector + ' input:checked')).map(c => c.value);
+  }
+
+  function gatherData(){
+    return {
+      appName: document.getElementById('appName').value.trim(),
+      appEmail: document.getElementById('appEmail').value.trim(),
+      appPhone: document.getElementById('appPhone').value.trim(),
+      appCollege: document.getElementById('appCollege').value.trim(),
+      appMajor: document.getElementById('appMajor').value.trim(),
+      appYear: document.getElementById('appYear').value,
+      appCity: document.getElementById('appCity').value.trim(),
+      roles: getChecked('#rolesGrid'),
+      availability: document.getElementById('appAvailability').value,
+      duration: document.getElementById('appDuration').value,
+      appLinkedin: document.getElementById('appLinkedin').value.trim(),
+      appPortfolio: document.getElementById('appPortfolio').value.trim(),
+      appWhy: document.getElementById('appWhy').value.trim()
+    };
+  }
+
+  function renderReview(){
+    const d = gatherData();
+    const container = document.getElementById('reviewContainer');
+    container.innerHTML = `
+      <div class="review-block">
+        <h4>Applicant Info</h4>
+        <div class="review-row"><span class="k">Name</span><span class="v">${d.appName || '—'}</span></div>
+        <div class="review-row"><span class="k">Email</span><span class="v">${d.appEmail || '—'}</span></div>
+        <div class="review-row"><span class="k">Phone</span><span class="v">${d.appPhone || '—'}</span></div>
+        <div class="review-row"><span class="k">Location</span><span class="v">${d.appCity || '—'}</span></div>
+      </div>
+      <div class="review-block">
+        <h4>Education & Role</h4>
+        <div class="review-row"><span class="k">College</span><span class="v">${d.appCollege || '—'}</span></div>
+        <div class="review-row"><span class="k">Roles</span><span class="v">${d.roles.join(', ') || '—'}</span></div>
+        <div class="review-row"><span class="k">Availability</span><span class="v">${d.availability || '—'}</span></div>
+      </div>
+      <div class="review-block">
+        <h4>Portfolio</h4>
+        <div class="review-row"><span class="k">LinkedIn</span><span class="v">${d.appLinkedin ? 'Provided' : '—'}</span></div>
+        <div class="review-row"><span class="k">Portfolio Link</span><span class="v">${d.appPortfolio ? 'Provided' : '—'}</span></div>
+      </div>
+    `;
+  }
+
+  function buildMessage(){
+    const d = gatherData();
+    let lines = [
+      'NEW INTERNSHIP APPLICATION — Hidden Gems Society',
+      '',
+      '— Personal Details —',
+      `Name: ${d.appName}`,
+      `Email: ${d.appEmail}`,
+      `Phone: ${d.appPhone}`,
+      `City: ${d.appCity}`,
+      `College/Institution: ${d.appCollege}`,
+      d.appMajor ? `Degree/Major: ${d.appMajor}` : null,
+      d.appYear ? `Year: ${d.appYear}` : null,
+      '',
+      '— Roles & Availability —',
+      `Applied Roles: ${d.roles.join(', ') || 'Not specified'}`,
+      `Availability: ${d.availability}`,
+      d.duration ? `Duration: ${d.duration}` : null,
+      '',
+      '— Portfolio & Links —',
+      d.appLinkedin ? `LinkedIn: ${d.appLinkedin}` : null,
+      d.appPortfolio ? `Portfolio/Link: ${d.appPortfolio}` : null,
+      '',
+      '— Why I want to join —',
+      d.appWhy
+    ].filter(Boolean);
+    return lines.join('\n');
+  }
+
+  document.getElementById('sendWhatsAppReg').addEventListener('click', () => {
+    const text = encodeURIComponent(buildMessage());
+    window.open(`https://wa.me/${HOST_CONFIG.whatsappNumber}?text=${text}`, '_blank');
+  });
+  
+  document.getElementById('sendEmailReg').addEventListener('click', () => {
+    const d = gatherData();
+    const subject = encodeURIComponent(`Intern Application — ${d.appName}`);
+    const body = encodeURIComponent(buildMessage());
+    window.location.href = `mailto:${HOST_CONFIG.email}?subject=${subject}&body=${body}`;
+  });
+
+  const CONFETTI_COLORS = ['#2E63E0', '#0E9F76', '#7C4DFF', '#D98F1E', '#F0429A', '#FFC93C'];
+  function fireConfetti(originX, originY, count){
+    if(reduceMotion) return;
+    count = count || 40;
+    for(let i = 0; i < count; i++){
+      const piece = document.createElement('div');
+      piece.className = 'confetti-piece';
+      const size = 6 + Math.random() * 6;
+      piece.style.width = size + 'px';
+      piece.style.height = (size * 0.4 + 4) + 'px';
+      piece.style.left = (originX + (Math.random() * 300 - 150)) + 'px';
+      piece.style.top = originY + 'px';
+      piece.style.background = CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)];
+      piece.style.animationDuration = (1.8 + Math.random() * 1.4) + 's';
+      piece.style.transform = `rotate(${Math.random() * 360}deg)`;
+      document.body.appendChild(piece);
+      setTimeout(() => piece.remove(), 3400);
+    }
+  }
+</script>
+
+</body>
+</html>

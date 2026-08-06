@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Program Registration — Hidden Gems Society</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FBFAF7; --paper-2:#F5F4EF; --wash-sapphire:#F2F6FD; --card:#FFFFFF;
+    --ink:#16141F; --ink-soft:#5C5768; --ink-faint: rgba(22,20,31,0.55); --line: rgba(22,20,31,0.09);
+    --sapphire:#2E63E0; --emerald:#0E9F76; --amethyst:#7C4DFF; --amber:#D98F1E; --coral:#E8604B;
+    --pink:#F0429A; --sunshine:#FFC93C; --teal:#12B7B0;
+    --font-display:'Sora', sans-serif; --font-body:'Inter', sans-serif; --font-mono:'JetBrains Mono', monospace;
+    color-scheme:light;
+  }
+  html[data-theme="dark"]{
+    --paper:#100E1A; --paper-2:#171425; --wash-sapphire:#161A2C; --card:#1B1830;
+    --ink:#F3F1FA; --ink-soft:#B4AFC6; --ink-faint: rgba(243,241,250,0.55); --line: rgba(255,255,255,0.1);
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper); color:var(--ink); font-family:var(--font-body); overflow-x:hidden;
+    line-height:1.6; font-size:16px; transition:background .4s ease, color .4s ease;
+  }
+  a{color:inherit; text-decoration:none;}
+  .wrap{ max-width:900px; margin:0 auto; padding:0 32px; }
+  @media (max-width:640px){ .wrap{padding:0 20px;} }
+  a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible{ outline:2px solid var(--sapphire); outline-offset:3px; border-radius:4px; }
+
+  @keyframes floaty{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-14px);} }
+  @keyframes blobMorph{
+    0%,100%{ border-radius:42% 58% 65% 35% / 45% 40% 60% 55%; transform:rotate(0deg) scale(1); }
+    33%{ border-radius:63% 37% 40% 60% / 55% 65% 35% 45%; transform:rotate(8deg) scale(1.05); }
+    66%{ border-radius:35% 65% 55% 45% / 40% 55% 45% 60%; transform:rotate(-6deg) scale(0.97); }
+  }
+  @keyframes popIn{
+    0%{ transform:scale(0.4) translateY(10px); opacity:0; }
+    70%{ transform:scale(1.08) translateY(-2px); opacity:1; }
+    100%{ transform:scale(1) translateY(0); opacity:1; }
+  }
+  @keyframes confettiFall{ 0%{ transform:translateY(-10vh) rotate(0deg); opacity:1; } 100%{ transform:translateY(110vh) rotate(720deg); opacity:0.9; } }
+  @keyframes gradientShift{ 0%,100%{ background-position:0% 50%; } 50%{ background-position:100% 50%; } }
+
+  .scroll-progress{
+    position:fixed; top:0; left:0; height:4px; width:0%; z-index:999;
+    background:linear-gradient(90deg, var(--sapphire), var(--emerald), var(--amethyst), var(--pink), var(--amber));
+    background-size:300% 100%; animation:gradientShift 6s linear infinite; transition:width .1s linear;
+  }
+
+  /* ---------- BLOBS ---------- */
+  .blob{ position:fixed; filter:blur(2px); opacity:0.14; z-index:-1; pointer-events:none; animation:blobMorph 12s ease-in-out infinite, floaty 8s ease-in-out infinite; }
+  .blob-1{ top:-60px; left:-80px; width:280px; height:280px; background:linear-gradient(135deg, var(--sapphire), var(--teal)); }
+  .blob-2{ bottom:-100px; right:-60px; width:320px; height:320px; background:linear-gradient(135deg, var(--pink), var(--amber)); animation-delay:2s, 1.5s; }
+
+  /* ---------- NAV ---------- */
+  .top-nav{ padding:20px 0; }
+  .top-nav .wrap{ display:flex; align-items:center; justify-content:space-between; }
+  .brand{ display:flex; align-items:center; gap:10px; font-family:var(--font-display); font-weight:700; font-size:1.1rem; }
+  .brand svg{ width:22px; height:22px; color:var(--sapphire); }
+  .back-link{ font-family:var(--font-body); font-weight:600; font-size:0.88rem; color:var(--ink-soft); display:flex; align-items:center; gap:6px; transition:color .2s ease; }
+  .back-link:hover{ color:var(--sapphire); }
+
+  /* ---------- HERO ---------- */
+  .reg-hero{ padding:36px 0 12px; text-align:center; }
+  .reg-eyebrow{
+    font-family:var(--font-mono); font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em; font-weight:600;
+    color:var(--amethyst); display:inline-flex; align-items:center; gap:8px; justify-content:center;
+  }
+  .reg-eyebrow::before{ content:''; width:6px; height:6px; background:currentColor; transform:rotate(45deg); border-radius:1px; }
+  .reg-hero h1{ font-family:var(--font-display); font-size:clamp(1.9rem,4vw,2.6rem); font-weight:700; margin-top:12px; letter-spacing:-0.01em; }
+  .reg-hero p{ color:var(--ink-soft); max-width:60ch; margin:14px auto 0; }
+
+  .trust-row{ display:flex; justify-content:center; gap:28px; flex-wrap:wrap; margin-top:28px; }
+  .trust-item{ display:flex; align-items:center; gap:8px; font-family:var(--font-mono); font-size:0.78rem; color:var(--ink-soft); font-weight:600; }
+  .trust-item svg{ width:16px; height:16px; color:var(--emerald); }
+
+  /* ---------- WIZARD ---------- */
+  .wizard-shell{ padding:48px 0 100px; }
+  .progress-track{ display:flex; align-items:center; gap:6px; margin-bottom:38px; }
+  .progress-step{ flex:1; display:flex; flex-direction:column; align-items:center; gap:8px; position:relative; }
+  .progress-step .dot{
+    width:34px; height:34px; border-radius:50%; background:var(--card); border:2px solid var(--line);
+    display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-weight:700; font-size:0.85rem;
+    color:var(--ink-soft); transition:all .35s ease; z-index:1;
+  }
+  .progress-step.active .dot{ border-color:var(--sapphire); color:var(--sapphire); background:var(--wash-sapphire); }
+  .progress-step.done .dot{ border-color:var(--emerald); background:var(--emerald); color:#fff; }
+  .progress-step .lbl{ font-family:var(--font-mono); font-size:0.65rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--ink-faint); text-align:center; }
+  .progress-step.active .lbl{ color:var(--sapphire); }
+  .progress-line{ position:absolute; top:17px; left:calc(50% + 24px); right:calc(-50% + 24px); height:2px; background:var(--line); z-index:0; }
+  .progress-step:last-child .progress-line{ display:none; }
+  .progress-step.done .progress-line{ background:var(--emerald); }
+
+  .surface{
+    background:var(--card); border:1px solid var(--line); border-radius:22px; padding:40px;
+    box-shadow:0 1px 2px rgba(22,20,31,0.03), 0 14px 32px -20px rgba(22,20,31,0.16);
+  }
+  @media (max-width:640px){ .surface{ padding:26px 22px; } }
+
+  .form-step{ display:none; }
+  .form-step.active{ display:block; animation:popIn .4s ease; }
+  .step-heading{ font-family:var(--font-display); font-size:1.35rem; font-weight:700; margin-bottom:6px; }
+  .step-sub{ color:var(--ink-soft); font-size:0.92rem; margin-bottom:28px; }
+
+  .field-grid{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  @media (max-width:640px){ .field-grid{ grid-template-columns:1fr; } }
+  .field{ display:flex; flex-direction:column; gap:7px; }
+  .field.full{ grid-column:1 / -1; }
+  .field label{ font-size:0.82rem; font-weight:600; color:var(--ink-soft); }
+  .field label .req{ color:var(--coral); }
+  .field input, .field select, .field textarea{
+    font-family:var(--font-body); font-size:0.94rem; padding:12px 14px; border-radius:11px; border:1.5px solid var(--line);
+    background:var(--paper); color:var(--ink); resize:vertical; width:100%;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus{ outline:none; border-color:var(--sapphire); }
+  .field.invalid input, .field.invalid select, .field.invalid textarea{ border-color:var(--coral); }
+  .field-error{ color:var(--coral); font-size:0.76rem; display:none; }
+  .field.invalid .field-error{ display:block; }
+
+  /* Program Selection Radio Cards */
+  .program-radio-grid{ display:grid; grid-template-columns:1fr; gap:14px; margin-bottom:24px; }
+  .program-radio-item{
+    display:flex; align-items:center; justify-content:space-between; padding:18px 20px; border-radius:14px; 
+    border:2px solid var(--line); background:var(--paper); cursor:pointer; transition:all .2s ease;
+  }
+  .program-radio-item:hover{ border-color:var(--sapphire); background:var(--wash-sapphire); }
+  .program-radio-item.selected{ border-color:var(--sapphire); background:var(--wash-sapphire); box-shadow:0 6px 16px -6px rgba(46,99,224,0.25); }
+  .program-radio-content h4{ font-family:var(--font-display); font-size:1.05rem; font-weight:700; color:var(--ink); margin-bottom:4px; }
+  .program-radio-content p{ font-size:0.85rem; color:var(--ink-soft); }
+  .program-radio-item input[type="radio"]{ width:20px; height:20px; accent-color:var(--sapphire); pointer-events:none; }
+
+  .wizard-nav{ display:flex; justify-content:space-between; align-items:center; margin-top:34px; gap:14px; }
+  .btn{
+    font-family:var(--font-display); font-weight:600; font-size:0.92rem; padding:13px 26px; border-radius:100px;
+    display:inline-flex; align-items:center; gap:8px; border:none; cursor:pointer; transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .btn:hover{ transform:translateY(-2px); }
+  .btn-primary{ background:var(--sapphire); color:#fff; box-shadow:0 10px 26px -10px rgba(46,99,224,0.55); }
+  .btn-emerald{ background:var(--emerald); color:#fff; box-shadow:0 10px 26px -10px rgba(14,159,118,0.5); }
+  .btn-ghost{ background:var(--card); color:var(--ink); border:1.5px solid var(--line); }
+  .btn-ghost:hover{ border-color:var(--ink); }
+
+  /* ---------- REVIEW STEP ---------- */
+  .review-block{ border:1.5px solid var(--line); border-radius:14px; padding:18px 20px; margin-bottom:14px; }
+  .review-block h4{ font-family:var(--font-display); font-size:0.95rem; font-weight:700; margin-bottom:10px; color:var(--sapphire); }
+  .review-row{ display:flex; justify-content:space-between; gap:14px; padding:5px 0; font-size:0.88rem; border-bottom:1px dashed var(--line); }
+  .review-row:last-child{ border-bottom:none; }
+  .review-row .k{ color:var(--ink-soft); flex-shrink:0; }
+  .review-row .v{ font-weight:600; text-align:right; }
+  .consent-row{ display:flex; align-items:flex-start; gap:10px; margin-top:20px; font-size:0.88rem; color:var(--ink-soft); }
+  .consent-row input{ margin-top:3px; accent-color:var(--sapphire); width:16px; height:16px; flex-shrink:0; }
+
+  /* ---------- SUCCESS ---------- */
+  .success-screen{ display:none; text-align:center; padding:20px 0; }
+  .success-screen.active{ display:block; animation:popIn .5s ease; }
+  .success-badge{
+    width:76px; height:76px; border-radius:50%; background:var(--wash-sapphire); margin:0 auto 20px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .success-badge svg{ width:36px; height:36px; color:var(--emerald); }
+  .success-screen h3{ font-family:var(--font-display); font-size:1.5rem; font-weight:700; }
+  .success-screen p{ color:var(--ink-soft); margin:12px auto 26px; max-width:48ch; }
+  .success-actions{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+
+  .confetti-piece{ position:fixed; top:-20px; z-index:400; pointer-events:none; border-radius:2px; animation:confettiFall linear forwards; }
+</style>
+</head>
+<body>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+
+<nav class="top-nav">
+  <div class="wrap">
+    <div class="brand">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M4 8L8 3H16L20 8L12 21L4 8Z"/></svg>
+      Hidden Gems
+    </div>
+    <a href="index.html" class="back-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
+      Back to Home
+    </a>
+  </div>
+</nav>
+
+<header class="reg-hero">
+  <div class="wrap">
+    <span class="reg-eyebrow">Level Up With Us</span>
+    <h1>Register for a Program</h1>
+    <p>Select the program you wish to join below. Whether you are looking to build foundational skills, win a hackathon, or train your faculty — it starts right here.</p>
+    <div class="trust-row">
+      <span class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>1:1 Mentorship</span>
+      <span class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Verified Certificates</span>
+      <span class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Industry Standard</span>
+    </div>
+  </div>
+</header>
+
+<div class="wizard-shell">
+  <div class="wrap">
+
+    <div class="progress-track" id="progressTrack">
+      <div class="progress-step active" data-step="1"><div class="dot">1</div><div class="lbl">Contact</div><div class="progress-line"></div></div>
+      <div class="progress-step" data-step="2"><div class="dot">2</div><div class="lbl">Program</div><div class="progress-line"></div></div>
+      <div class="progress-step" data-step="3"><div class="dot">3</div><div class="lbl">Background</div><div class="progress-line"></div></div>
+      <div class="progress-step" data-step="4"><div class="dot">4</div><div class="lbl">Review</div><div class="progress-line"></div></div>
+    </div>
+
+    <div class="surface" id="formSurface">
+      <form id="regForm" novalidate>
+
+        <!-- STEP 1 — PERSONAL DETAILS -->
+        <div class="form-step active" data-step="1">
+          <div class="step-heading">Personal Details</div>
+          <div class="step-sub">How can we reach you regarding your registration?</div>
+          <div class="field-grid">
+            <div class="field full">
+              <label>Full Name <span class="req">*</span></label>
+              <input type="text" id="regName" placeholder="e.g. John Doe" required>
+              <div class="field-error">Please enter your full name.</div>
+            </div>
+            <div class="field">
+              <label>Email Address <span class="req">*</span></label>
+              <input type="email" id="regEmail" placeholder="you@email.com" required>
+              <div class="field-error">Please enter a valid email.</div>
+            </div>
+            <div class="field">
+              <label>Phone / WhatsApp <span class="req">*</span></label>
+              <input type="tel" id="regPhone" placeholder="+91 98765 43210" required>
+              <div class="field-error">Please enter your contact number.</div>
+            </div>
+            <div class="field full">
+              <label>City & State <span class="req">*</span></label>
+              <input type="text" id="regLocation" placeholder="e.g. Hyderabad, Telangana" required>
+              <div class="field-error">Please enter your location.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 2 — PROGRAM SELECTION -->
+        <div class="form-step" data-step="2">
+          <div class="step-heading">Select Your Program</div>
+          <div class="step-sub">Which Hidden Gems program are you applying for?</div>
+
+          <div class="program-radio-grid" id="programSelectionGrid">
+            
+            <label class="program-radio-item">
+              <div class="program-radio-content">
+                <h4 style="color:var(--emerald);">Student Development Program (SDP)</h4>
+                <p>Soft skills, core tech, and hands-on STEM foundations.</p>
+              </div>
+              <input type="radio" name="programChoice" value="Student Development Program (SDP)">
+            </label>
+
+            <label class="program-radio-item">
+              <div class="program-radio-content">
+                <h4 style="color:var(--sapphire);">Job Readiness Program</h4>
+                <p>Resume building, mock interviews, and direct hiring partner exposure.</p>
+              </div>
+              <input type="radio" name="programChoice" value="Job Readiness Program">
+            </label>
+
+            <label class="program-radio-item">
+              <div class="program-radio-content">
+                <h4 style="color:var(--amber);">Hackathon / Ideathon</h4>
+                <p>Register your team to build, pitch, and compete for real prizes.</p>
+              </div>
+              <input type="radio" name="programChoice" value="Hackathon / Ideathon">
+            </label>
+
+            <label class="program-radio-item">
+              <div class="program-radio-content">
+                <h4 style="color:var(--amethyst);">Faculty Development / Corporate Training</h4>
+                <p>Register for a 3-day upskilling track for educators or employees.</p>
+              </div>
+              <input type="radio" name="programChoice" value="Faculty / Corporate Training">
+            </label>
+
+            <label class="program-radio-item">
+              <div class="program-radio-content">
+                <h4 style="color:var(--emerald);">Child Development Program</h4>
+                <p>Soft-skills and passion-first foundations for younger students.</p>
+              </div>
+              <input type="radio" name="programChoice" value="Child Development Program">
+            </label>
+
+          </div>
+          <div class="field-error" id="programError" style="margin-bottom:20px;">Please select one program to continue.</div>
+        </div>
+
+        <!-- STEP 3 — BACKGROUND -->
+        <div class="form-step" data-step="3">
+          <div class="step-heading">Your Background</div>
+          <div class="step-sub">Help us understand where you are starting from so we can tailor the experience.</div>
+
+          <div class="field-grid">
+            <div class="field full">
+              <label>College / University / Company <span class="req">*</span></label>
+              <input type="text" id="regInstitution" placeholder="Where do you currently study or work?" required>
+              <div class="field-error">This field is required.</div>
+            </div>
+            <div class="field">
+              <label>Current Status <span class="req">*</span></label>
+              <select id="regStatus" required>
+                <option value="">Select status…</option>
+                <option>High School Student</option>
+                <option>College Student</option>
+                <option>Recent Graduate</option>
+                <option>Faculty / Educator</option>
+                <option>Working Professional</option>
+                <option>Other</option>
+              </select>
+              <div class="field-error">Please select your status.</div>
+            </div>
+            <div class="field">
+              <label>Major / Designation</label>
+              <input type="text" id="regMajor" placeholder="e.g. B.Tech CS / Assistant Professor">
+            </div>
+            <div class="field full" style="margin-top:10px;">
+              <label>What are your main goals for this program? <span class="req">*</span></label>
+              <textarea id="regGoals" rows="4" placeholder="Briefly describe what you hope to learn or achieve..." required></textarea>
+              <div class="field-error">Please share your goals with us.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 4 — REVIEW & SUBMIT -->
+        <div class="form-step" data-step="4">
+          <div class="step-heading">Review &amp; Submit</div>
+          <div class="step-sub">Double-check your details before submitting your registration.</div>
+
+          <div id="reviewContainer"></div>
+
+          <div class="consent-row">
+            <input type="checkbox" id="consentCheck">
+            <label for="consentCheck">I confirm the information provided is accurate and consent to being contacted by Hidden Gems Society regarding this registration.</label>
+          </div>
+        </div>
+
+      </form>
+
+      <div class="wizard-nav" id="wizardNav">
+        <button type="button" class="btn btn-ghost" id="btnBack" style="visibility:hidden;">← Back</button>
+        <button type="button" class="btn btn-primary" id="btnNext">Continue →</button>
+      </div>
+    </div>
+
+    <!-- SUCCESS SCREEN -->
+    <div class="surface success-screen" id="successScreen">
+      <div class="success-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+      </div>
+      <h3>Registration ready to send!</h3>
+      <p>Choose how you'd like to submit — your details are pre-filled either way, so it just takes one tap to send.</p>
+      <div class="success-actions">
+        <button type="button" class="btn btn-emerald" id="sendWhatsAppReg">Send via WhatsApp →</button>
+        <button type="button" class="btn btn-ghost" id="sendEmailReg">Send via Email</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script type="module">
+  import { submitProgramRegistration } from './supabase-client.js';
+
+  const HOST_CONFIG = {
+    whatsappNumber: '919494608408',
+    email: 'hello@hiddengemssociety.com'
+  };
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const scrollProgress = document.getElementById('scrollProgress');
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    if(scrollProgress) scrollProgress.style.width = pct + '%';
+  }, { passive:true });
+
+  (function(){
+    try{
+      const saved = localStorage.getItem('hg-theme');
+      if(saved) document.documentElement.setAttribute('data-theme', saved);
+    }catch(e){}
+  })();
+
+  const radioItems = document.querySelectorAll('.program-radio-item');
+  radioItems.forEach(item => {
+    item.addEventListener('click', () => {
+      radioItems.forEach(i => i.classList.remove('selected'));
+      item.classList.add('selected');
+      item.querySelector('input').checked = true;
+      document.getElementById('programError').style.display = 'none';
+    });
+  });
+
+  const TOTAL_STEPS = 4;
+  let currentStep = 1;
+  const steps = document.querySelectorAll('.form-step');
+  const progressSteps = document.querySelectorAll('.progress-step');
+  const btnNext = document.getElementById('btnNext');
+  const btnBack = document.getElementById('btnBack');
+  const formSurface = document.getElementById('formSurface');
+  const successScreen = document.getElementById('successScreen');
+
+  const requiredByStep = {
+    1: ['regName','regEmail','regPhone','regLocation'],
+    2: [],
+    3: ['regInstitution','regStatus','regGoals'],
+    4: []
+  };
+
+  function validateStep(step){
+    let valid = true;
+    (requiredByStep[step] || []).forEach(id => {
+      const el = document.getElementById(id);
+      const field = el.closest('.field');
+      let ok = el.value.trim().length > 0;
+      if(id === 'regEmail' && ok){ ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim()); }
+      field.classList.toggle('invalid', !ok);
+      if(!ok) valid = false;
+    });
+    
+    if(step === 2){
+      const selectedProgram = document.querySelector('input[name="programChoice"]:checked');
+      if(!selectedProgram){
+        document.getElementById('programError').style.display = 'block';
+        valid = false;
+      }
+    }
+    return valid;
+  }
+
+  function showStep(step){
+    steps.forEach(s => s.classList.toggle('active', Number(s.dataset.step) === step));
+    progressSteps.forEach(p => {
+      const n = Number(p.dataset.step);
+      p.classList.toggle('active', n === step);
+      p.classList.toggle('done', n < step);
+    });
+    btnBack.style.visibility = step === 1 ? 'hidden' : 'visible';
+    btnNext.textContent = step === TOTAL_STEPS ? 'Confirm & Send →' : 'Continue →';
+    if(step === TOTAL_STEPS) renderReview();
+    window.scrollTo({ top: formSurface.getBoundingClientRect().top + window.scrollY - 100, behavior: reduceMotion ? 'auto' : 'smooth' });
+  }
+
+  btnNext.addEventListener('click', async () => {
+    if(!validateStep(currentStep)) return;
+    if(currentStep < TOTAL_STEPS){
+      currentStep++;
+      showStep(currentStep);
+    } else {
+      if(!document.getElementById('consentCheck').checked){
+        alert('Please check the consent box to proceed.');
+        return;
+      }
+
+      const origText = btnNext.textContent;
+      btnNext.textContent = 'Registering...';
+      btnNext.disabled = true;
+
+      const d = gatherData();
+      const result = await submitProgramRegistration(d);
+
+      btnNext.textContent = origText;
+      btnNext.disabled = false;
+
+      if(!result.success) {
+        console.error('Supabase Error:', result.error);
+        alert('Registration failed: ' + result.error);
+        return;
+      }
+
+      formSurface.style.display = 'none';
+      successScreen.classList.add('active');
+      fireConfetti(window.innerWidth / 2, 160, 50);
+    }
+  });
+  
+  btnBack.addEventListener('click', () => {
+    if(currentStep > 1){ currentStep--; showStep(currentStep); }
+  });
+
+  function gatherData(){
+    const progRadio = document.querySelector('input[name="programChoice"]:checked');
+    return {
+      regName: document.getElementById('regName').value.trim(),
+      regEmail: document.getElementById('regEmail').value.trim(),
+      regPhone: document.getElementById('regPhone').value.trim(),
+      regLocation: document.getElementById('regLocation').value.trim(),
+      programChoice: progRadio ? progRadio.value : '',
+      regInstitution: document.getElementById('regInstitution').value.trim(),
+      regStatus: document.getElementById('regStatus').value,
+      regMajor: document.getElementById('regMajor').value.trim(),
+      regGoals: document.getElementById('regGoals').value.trim()
+    };
+  }
+
+  function renderReview(){
+    const d = gatherData();
+    const container = document.getElementById('reviewContainer');
+    container.innerHTML = `
+      <div class="review-block">
+        <h4>Selected Program</h4>
+        <div class="review-row"><span class="v" style="color:var(--sapphire); font-size:1rem;">${d.programChoice}</span></div>
+      </div>
+      <div class="review-block">
+        <h4>Applicant Info</h4>
+        <div class="review-row"><span class="k">Name</span><span class="v">${d.regName || '—'}</span></div>
+        <div class="review-row"><span class="k">Email</span><span class="v">${d.regEmail || '—'}</span></div>
+        <div class="review-row"><span class="k">Phone</span><span class="v">${d.regPhone || '—'}</span></div>
+        <div class="review-row"><span class="k">Location</span><span class="v">${d.regLocation || '—'}</span></div>
+      </div>
+      <div class="review-block">
+        <h4>Background</h4>
+        <div class="review-row"><span class="k">Institution</span><span class="v">${d.regInstitution || '—'}</span></div>
+        <div class="review-row"><span class="k">Status</span><span class="v">${d.regStatus || '—'}</span></div>
+      </div>
+    `;
+  }
+
+  function buildMessage(){
+    const d = gatherData();
+    let lines = [
+      `NEW PROGRAM REGISTRATION — ${d.programChoice}`,
+      `Name: ${d.regName}`,
+      `Email: ${d.regEmail}`,
+      `Phone: ${d.regPhone}`
+    ];
+    return lines.join('\n');
+  }
+
+  document.getElementById('sendWhatsAppReg').addEventListener('click', () => {
+    const text = encodeURIComponent(buildMessage());
+    window.open(`https://wa.me/${HOST_CONFIG.whatsappNumber}?text=${text}`, '_blank');
+  });
+  
+  document.getElementById('sendEmailReg').addEventListener('click', () => {
+    const d = gatherData();
+    const subject = encodeURIComponent(`Registration: ${d.programChoice} — ${d.regName}`);
+    const body = encodeURIComponent(buildMessage());
+    window.location.href = `mailto:${HOST_CONFIG.email}?subject=${subject}&body=${body}`;
+  });
+
+  const CONFETTI_COLORS = ['#2E63E0', '#0E9F76', '#7C4DFF', '#D98F1E', '#F0429A', '#FFC93C'];
+  function fireConfetti(originX, originY, count){
+    if(reduceMotion) return;
+    count = count || 40;
+    for(let i = 0; i < count; i++){
+      const piece = document.createElement('div');
+      piece.className = 'confetti-piece';
+      const size = 6 + Math.random() * 6;
+      piece.style.width = size + 'px';
+      piece.style.height = (size * 0.4 + 4) + 'px';
+      piece.style.left = (originX + (Math.random() * 300 - 150)) + 'px';
+      piece.style.top = originY + 'px';
+      piece.style.background = CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)];
+      piece.style.animationDuration = (1.8 + Math.random() * 1.4) + 's';
+      piece.style.transform = `rotate(${Math.random() * 360}deg)`;
+      document.body.appendChild(piece);
+      setTimeout(() => piece.remove(), 3400);
+    }
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "name": "hiddengems-backend",
+  "version": "1.0.0",
+  "description": "A lightweight Node server for the HiddenGems frontend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  }
+}

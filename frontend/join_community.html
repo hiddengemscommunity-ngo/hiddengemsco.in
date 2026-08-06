@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Join the Community — Hidden Gems Society</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:#0B0A14; --card:rgba(255,255,255,0.045); --card-border:rgba(255,255,255,0.1);
+      --ink:#F4F2FB; --ink-soft:#A29CBF; --line:rgba(255,255,255,0.09);
+      --emerald:#12C48B; --emerald-tint:rgba(18,196,139,0.14); --emerald-glow:rgba(18,196,139,0.35);
+      --amethyst:#B24DE0;
+      --danger:#F0836E; --danger-tint:rgba(240,131,110,0.14);
+      --font-display:'Sora', sans-serif; --font-body:'Inter', sans-serif; --font-mono:'JetBrains Mono', monospace;
+      color-scheme: dark;
+    }
+    * { box-sizing:border-box; }
+    html, body { height:100%; }
+    body {
+      margin:0; min-height:100vh; background:var(--bg); color:var(--ink); font-family:var(--font-body);
+      position:relative; overflow-x:hidden;
+    }
+    body::before, body::after { content:''; position:fixed; border-radius:50%; filter:blur(90px); z-index:0; pointer-events:none; }
+    body::before { width:480px; height:480px; top:-140px; left:-160px; background:radial-gradient(circle, var(--emerald-glow), transparent 70%); opacity:0.55; animation:drift1 16s ease-in-out infinite; }
+    body::after  { width:520px; height:520px; bottom:-180px; right:-160px; background:radial-gradient(circle, rgba(178,77,224,0.4), transparent 70%); opacity:0.5; animation:drift2 18s ease-in-out infinite; }
+    @keyframes drift1 { 0%,100%{ transform:translate(0,0);} 50%{ transform:translate(30px,20px);} }
+    @keyframes drift2 { 0%,100%{ transform:translate(0,0);} 50%{ transform:translate(-25px,-15px);} }
+    @media (prefers-reduced-motion: reduce) { body::before, body::after { animation:none; } }
+
+    .page { max-width:520px; margin:0 auto; padding:56px 20px 80px; position:relative; z-index:1; }
+
+    .brand {
+      display:inline-flex; align-items:center; gap:10px; margin-bottom:34px;
+      font-family:var(--font-display); font-weight:700; letter-spacing:-0.01em; font-size:0.95rem; color:var(--ink);
+      opacity:0; animation:fadeUp 0.5s ease forwards;
+    }
+    .brand svg { width:26px; height:26px; color:var(--emerald); }
+
+    h1 {
+      font-family:var(--font-display); font-weight:700; font-size:clamp(2rem, 4vw, 2.5rem); margin:0 0 12px; color:#fff;
+      opacity:0; animation:fadeUp 0.5s ease 0.08s forwards;
+    }
+    p.lead {
+      margin:0 0 30px; color:var(--ink-soft); line-height:1.75; font-size:0.98rem;
+      opacity:0; animation:fadeUp 0.5s ease 0.14s forwards;
+    }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+    .card {
+      background:var(--card); border:1px solid var(--card-border); border-radius:24px; padding:30px;
+      box-shadow:0 24px 60px -20px rgba(0,0,0,0.6); backdrop-filter:blur(18px);
+      opacity:0; animation:fadeUp 0.55s ease 0.2s forwards;
+    }
+
+    .field { display:grid; gap:9px; margin-bottom:20px; }
+    label {
+      font-family:var(--font-mono); font-size:0.72rem; font-weight:500; text-transform:uppercase;
+      letter-spacing:0.06em; color:var(--ink-soft);
+    }
+    input {
+      width:100%; border:1.5px solid var(--card-border); border-radius:14px; padding:14px 16px;
+      font-size:1rem; font-family:var(--font-body); color:var(--ink); background:rgba(255,255,255,0.03);
+      transition:border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+    input::placeholder { color:rgba(162,156,191,0.55); }
+    input:hover { border-color:rgba(255,255,255,0.2); }
+    input:focus {
+      outline:none; border-color:var(--emerald); background:rgba(18,196,139,0.05);
+      box-shadow:0 0 0 4px var(--emerald-tint);
+    }
+    input:invalid:not(:placeholder-shown) { border-color:var(--danger); }
+    .help { font-size:0.82rem; color:var(--ink-soft); }
+
+    .btn {
+      width:100%; border:none; border-radius:100px; padding:15px 18px; font-size:1rem;
+      font-family:var(--font-display); font-weight:700; cursor:pointer; margin-top:6px;
+      display:flex; align-items:center; justify-content:center; gap:10px;
+      transition:transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+    }
+    .btn-primary { background:var(--emerald); color:#04140F; box-shadow:0 14px 30px -8px var(--emerald-glow); }
+    .btn-primary:hover:not(:disabled) { transform:translateY(-2px); box-shadow:0 18px 36px -8px var(--emerald-glow); }
+    .btn-primary:active:not(:disabled) { transform:translateY(0); }
+    .btn-primary:disabled { opacity:0.7; cursor:default; }
+    .btn-primary:focus-visible { outline:2px solid var(--emerald); outline-offset:3px; }
+
+    .spinner { width:15px; height:15px; border:2px solid rgba(4,20,15,0.3); border-top-color:#04140F; border-radius:50%; animation:spin 0.7s linear infinite; display:none; }
+    .btn-primary.loading .spinner { display:inline-block; }
+    .btn-primary.loading .btn-label { opacity:0.85; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+
+    .message {
+      margin-top:20px; padding:15px 18px; border-radius:16px; font-weight:600; font-size:0.92rem;
+      display:none; opacity:0; transform:translateY(-6px);
+    }
+    .message.show { display:block; animation:msgIn 0.35s ease forwards; }
+    @keyframes msgIn { to { opacity:1; transform:translateY(0); } }
+    .message.success { background:var(--emerald-tint); color:#5EEAC0; border:1px solid rgba(18,196,139,0.3); }
+    .message.error { background:var(--danger-tint); color:var(--danger); border:1px solid rgba(240,131,110,0.3); animation:msgIn 0.35s ease forwards, shake 0.4s ease 0.35s; }
+    @keyframes shake { 0%,100%{ transform:translateX(0);} 25%{ transform:translateX(-4px);} 75%{ transform:translateX(4px);} }
+    @media (prefers-reduced-motion: reduce) { .message.error { animation:msgIn 0.35s ease forwards; } }
+
+    .back-link {
+      display:inline-flex; align-items:center; gap:6px; margin-top:26px; color:var(--emerald);
+      font-weight:600; font-size:0.9rem; text-decoration:none; transition:color 0.2s ease, gap 0.2s ease;
+      opacity:0; animation:fadeUp 0.5s ease 0.28s forwards;
+    }
+    .back-link:hover { color:var(--amethyst); gap:9px; }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="brand">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8L8 3H16L20 8L12 21L4 8Z"/></svg>
+      Hidden Gems Community
+    </div>
+
+    <h1>Join the Community</h1>
+    <p class="lead">Share your name, email, and mobile number to community. The admin dashboard will receive your request immediately.</p>
+
+    <div class="card">
+      <form id="communityForm">
+        <div class="field">
+          <label for="communityName">Full Name</label>
+          <input id="communityName" name="communityName" type="text" autocomplete="name" placeholder="Your full name" required />
+          <span class="help">This helps us identify your request.</span>
+        </div>
+
+        <div class="field">
+          <label for="communityEmail">Email Address</label>
+          <input id="communityEmail" name="communityEmail" type="email" autocomplete="email" placeholder="you@example.com" required />
+        </div>
+
+        <div class="field">
+          <label for="communityPhone">Mobile Number</label>
+          <input id="communityPhone" name="communityPhone" type="tel" autocomplete="tel" placeholder="+91 98765 43210" required />
+        </div>
+
+        <button type="submit" class="btn btn-primary" id="submitBtn">
+          <span class="spinner"></span>
+          <span class="btn-label">Request community</span>
+        </button>
+      </form>
+
+      <div id="formMessage" class="message" role="status" aria-live="polite"></div>
+    </div>
+
+    <a href="index.html" class="back-link">← Back to Home</a>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script type="module">
+    import { submitCommunityRequest } from './supabase-client.js';
+
+    const form = document.getElementById('communityForm');
+    const messageEl = document.getElementById('formMessage');
+    const submitBtn = document.getElementById('submitBtn');
+    const btnLabel = submitBtn.querySelector('.btn-label');
+
+    function showMessage(text, type) {
+      messageEl.textContent = text;
+      messageEl.className = `message ${type} show`;
+    }
+    function hideMessage() {
+      messageEl.className = 'message';
+      messageEl.textContent = '';
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      hideMessage();
+
+      const name = document.getElementById('communityName').value.trim();
+      const email = document.getElementById('communityEmail').value.trim();
+      const phone = document.getElementById('communityPhone').value.trim();
+
+      if (!name || !email || !phone) {
+        showMessage('Please fill in all fields before submitting.', 'error');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.classList.add('loading');
+      btnLabel.textContent = 'Sending...';
+
+      const result = await submitCommunityRequest({ name, email, phone });
+
+      submitBtn.disabled = false;
+      submitBtn.classList.remove('loading');
+      btnLabel.textContent = 'Request Access';
+
+      if (result.success) {
+        showMessage('Your community request is submitted. The admin will see it in the dashboard.', 'success');
+        form.reset();
+      } else {
+        showMessage('Request failed: ' + (result.error || 'Please try again.'), 'error');
+      }
+    });
+  </script>
+</body>
+</html>

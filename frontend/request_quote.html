@@ -1,0 +1,38 @@
+<section style="padding: 150px 0 90px; min-height: 80vh; display: flex; align-items: center; background: var(--paper-2);">
+  <div class="wrap" style="max-width: 640px; width: 100%;">
+    <div class="surface reveal in" style="padding: 44px; border-top: 4px solid var(--amber);">
+      <span class="eyebrow" style="margin-bottom: 8px; color: var(--amber);">For Institutions</span>
+      <h1 style="font-family: var(--font-display); font-size: 2.2rem; font-weight: 700; margin-bottom: 12px;">Request FDP Quote</h1>
+      <p style="color: var(--ink-soft); margin-bottom: 32px;">Let's build a custom 3-day on-campus curriculum for your faculty. Tell us what you need.</p>
+      
+      <form id="quoteForm" style="display: flex; flex-direction: column; gap: 20px;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <label style="font-size: 0.85rem; font-weight: 600; color: var(--ink-soft); display: flex; flex-direction: column; gap: 8px;">
+            Your Name
+            <input type="text" required placeholder="Full Name" style="padding: 12px 16px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--paper); font-family: var(--font-body); font-size: 1rem;">
+          </label>
+          <label style="font-size: 0.85rem; font-weight: 600; color: var(--ink-soft); display: flex; flex-direction: column; gap: 8px;">
+            Institution Name
+            <input type="text" required placeholder="College or University" style="padding: 12px 16px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--paper); font-family: var(--font-body); font-size: 1rem;">
+          </label>
+        </div>
+
+        <label style="font-size: 0.85rem; font-weight: 600; color: var(--ink-soft); display: flex; flex-direction: column; gap: 8px;">
+          Estimated Number of Faculty
+          <select style="padding: 12px 16px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--paper); font-family: var(--font-body); font-size: 1rem; color: var(--ink);">
+            <option>10 - 25</option>
+            <option>26 - 50</option>
+            <option>50+</option>
+          </select>
+        </label>
+
+        <label style="font-size: 0.85rem; font-weight: 600; color: var(--ink-soft); display: flex; flex-direction: column; gap: 8px;">
+          Primary Focus Areas
+          <input type="text" placeholder="e.g., AI integration, Soft Skills, IoT" style="padding: 12px 16px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--paper); font-family: var(--font-body); font-size: 1rem;">
+        </label>
+
+        <button type="submit" class="btn btn-amber" style="margin-top: 10px; justify-content: center; width: 100%;">Request Custom Quote →</button>
+      </form>
+    </div>
+  </div>
+</section>
