@@ -1,16 +1,47 @@
-<section style="padding: 150px 0 90px; min-height: 80vh; display: flex; align-items: center; background: var(--paper);">
-  <div class="wrap" style="max-width: 500px; width: 100%;">
-    <div class="surface reveal in" style="padding: 44px; text-align: center; border-top: 4px solid var(--emerald);">
-      <div class="icon-chip chip-emerald" style="margin: 0 auto 20px;"><svg viewBox="0 0 24 24" style="color:var(--emerald); width: 24px; height: 24px;"><use href="#icon-letter"/></svg></div>
-      <h1 style="font-family: var(--font-display); font-size: 2rem; font-weight: 700; margin-bottom: 12px;">You're almost on the list</h1>
-      <p style="color: var(--ink-soft); margin-bottom: 32px;">Drop your email below. We'll send you a direct alert the second registrations open.</p>
-      
-      <form id="waitlistForm" style="display: flex; flex-direction: column; gap: 16px; text-align: left;">
-        <input type="email" required placeholder="you@email.com" style="padding: 14px 20px; border-radius: 100px; border: 1.5px solid var(--line); background: var(--paper-2); font-family: var(--font-body); font-size: 1rem; width: 100%;">
-        
-        <button type="submit" class="btn btn-emerald" style="justify-content: center; width: 100%;">Join Waitlist →</button>
-      </form>
-      <p style="font-size: 0.8rem; color: var(--ink-faint); margin-top: 20px;">We respect your inbox. No spam, ever.</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Waitlist - AdhyaA Labs</title>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-main); display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        .container { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; width: 100%; max-width: 500px; padding: 40px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); text-align: center; }
+        h2 { font-size: 26px; margin-bottom: 10px; color: var(--text-main); }
+        p { color: var(--text-muted); font-size: 14px; margin-bottom: 28px; line-height: 1.5; }
+        .form-group { margin-bottom: 20px; text-align: left; }
+        label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: var(--text-main); }
+        input { width: 100%; padding: 12px 16px; background-color: var(--bg-color); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-main); font-size: 14px; transition: border-color 0.2s; }
+        input:focus { outline: none; border-color: var(--primary); }
+        button { width: 100%; background-color: var(--primary); color: white; border: none; padding: 14px; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: background-color 0.2s; }
+        button:hover { background-color: var(--primary-hover); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Join the Exclusive Waitlist</h2>
+        <p>Be the first to access our upcoming product releases, early-bird cohort slots, and AI utility tools.</p>
+        <form action="#" method="POST">
+            <div class="form-group">
+                <label for="name">Your Full Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="name@example.com" required>
+            </div>
+            <button type="submit">Secure My Spot</button>
+        </form>
     </div>
-  </div>
-</section>
+</body>
+</html>

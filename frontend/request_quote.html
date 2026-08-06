@@ -1,38 +1,70 @@
-<section style="padding: 150px 0 90px; min-height: 80vh; display: flex; align-items: center; background: var(--paper-2);">
-  <div class="wrap" style="max-width: 640px; width: 100%;">
-    <div class="surface reveal in" style="padding: 44px; border-top: 4px solid var(--amber);">
-      <span class="eyebrow" style="margin-bottom: 8px; color: var(--amber);">For Institutions</span>
-      <h1 style="font-family: var(--font-display); font-size: 2.2rem; font-weight: 700; margin-bottom: 12px;">Request FDP Quote</h1>
-      <p style="color: var(--ink-soft); margin-bottom: 32px;">Let's build a custom 3-day on-campus curriculum for your faculty. Tell us what you need.</p>
-      
-      <form id="quoteForm" style="display: flex; flex-direction: column; gap: 20px;">
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-          <label style="font-size: 0.85rem; font-weight: 600; color: var(--ink-soft); display: flex; flex-direction: column; gap: 8px;">
-            Your Name
-            <input type="text" required placeholder="Full Name" style="padding: 12px 16px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--paper); font-family: var(--font-body); font-size: 1rem;">
-          </label>
-          <label style="font-size: 0.85rem; font-weight: 600; color: var(--ink-soft); display: flex; flex-direction: column; gap: 8px;">
-            Institution Name
-            <input type="text" required placeholder="College or University" style="padding: 12px 16px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--paper); font-family: var(--font-body); font-size: 1rem;">
-          </label>
-        </div>
-
-        <label style="font-size: 0.85rem; font-weight: 600; color: var(--ink-soft); display: flex; flex-direction: column; gap: 8px;">
-          Estimated Number of Faculty
-          <select style="padding: 12px 16px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--paper); font-family: var(--font-body); font-size: 1rem; color: var(--ink);">
-            <option>10 - 25</option>
-            <option>26 - 50</option>
-            <option>50+</option>
-          </select>
-        </label>
-
-        <label style="font-size: 0.85rem; font-weight: 600; color: var(--ink-soft); display: flex; flex-direction: column; gap: 8px;">
-          Primary Focus Areas
-          <input type="text" placeholder="e.g., AI integration, Soft Skills, IoT" style="padding: 12px 16px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--paper); font-family: var(--font-body); font-size: 1rem;">
-        </label>
-
-        <button type="submit" class="btn btn-amber" style="margin-top: 10px; justify-content: center; width: 100%;">Request Custom Quote →</button>
-      </form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request a Quote - AdhyaA Labs</title>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-main); display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        .container { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; width: 100%; max-width: 600px; padding: 40px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+        h2 { font-size: 24px; margin-bottom: 8px; color: var(--text-main); }
+        p { color: var(--text-muted); font-size: 14px; margin-bottom: 24px; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: var(--text-main); }
+        input, select, textarea { width: 100%; padding: 12px 16px; background-color: var(--bg-color); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-main); font-size: 14px; transition: border-color 0.2s; }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); }
+        textarea { resize: vertical; min-height: 120px; }
+        button { width: 100%; background-color: var(--primary); color: white; border: none; padding: 14px; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: background-color 0.2s; }
+        button:hover { background-color: var(--primary-hover); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Request a Project Quote</h2>
+        <p>Tell us about your project requirements and scope to get a customized estimate.</p>
+        <form action="#" method="POST">
+            <div class="form-group">
+                <label for="name">Your Name / Company Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter name or organization" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Business Email</label>
+                <input type="email" id="email" name="email" placeholder="name@company.com" required>
+            </div>
+            <div class="form-group">
+                <label for="service">Service Required</label>
+                <select id="service" name="service" required>
+                    <option value="" disabled selected>Select a service type</option>
+                    <option value="custom-software">Custom Web/App Development</option>
+                    <option value="ai-ml">AI / Machine Learning Solutions</option>
+                    <option value="iot-dev">IoT & Hardware Prototyping</option>
+                    <option value="data-pipeline">Data Analytics Pipeline</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="budget">Estimated Budget Range (INR)</label>
+                <select id="budget" name="budget">
+                    <option value="tier-1">₹50,000 - ₹1,00,000</option>
+                    <option value="tier-2">₹1,00,000 - ₹2,50,000</option>
+                    <option value="tier-3">₹2,50,000+</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="details">Project Details & Scope</label>
+                <textarea id="details" name="details" placeholder="Describe what you want to build, key features, and expected timelines..." required></textarea>
+            </div>
+            <button type="submit">Submit Request</button>
+        </form>
     </div>
-  </div>
-</section>
+</body>
+</html>
