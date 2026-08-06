@@ -7,6 +7,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
   <style>
+    .container {
+            width: 600px;
+            padding: 40px;
+        }
     :root {
       --bg:#0B0A14; --card:rgba(255,255,255,0.045); --card-border:rgba(255,255,255,0.1);
       --ink:#F4F2FB; --ink-soft:#A29CBF; --line:rgba(255,255,255,0.09);
@@ -107,6 +111,12 @@
       opacity:0; animation:fadeUp 0.5s ease 0.28s forwards;
     }
     .back-link:hover { color:var(--amethyst); gap:9px; }
+    @media screen and (max-width: 768px) {
+            .container {
+                width: 100%;
+                padding: 20px;
+            }
+        }
   </style>
 </head>
 <body>
