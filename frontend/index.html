@@ -111,10 +111,6 @@
     transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;
   }
   .surface:hover{ transform:translateY(-4px); box-shadow:0 22px 44px -18px var(--glow, rgba(22,20,31,0.18)); border-color:rgba(22,20,31,0.16); }
-  .container {
-            width: 600px;
-            padding: 40px;
-        }
   .btn{
     font-family:var(--font-display); font-weight:600; font-size:0.95rem;
     padding:14px 28px; border-radius:100px; display:inline-flex; align-items:center; gap:8px;
@@ -716,16 +712,6 @@
   .sec-divider svg{ position:absolute; bottom:-1px; width:100%; height:100%; }
   @media (max-width:640px){ .sec-divider{ height:38px; } }
 
-  /* ---------- WHATSAPP FLOAT ---------- */
-  .whatsapp-float{
-    position:fixed; right:22px; bottom:100px; z-index:249; width:52px; height:52px; border-radius:50%;
-    background:#25D366; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center;
-    box-shadow:0 12px 26px -10px rgba(37,211,102,0.6); animation:ringPulse 2.6s ease-out infinite;
-  }
-  .whatsapp-float svg{ width:26px; height:26px; color:#fff; }
-  .whatsapp-float:hover{ transform:scale(1.08); }
-  @media (max-width:640px){ .whatsapp-float{ right:14px; bottom:82px; width:46px; height:46px; } }
-
   /* ---------- SCROLL MILESTONE BADGE ---------- */
   .milestone-toast{
     position:fixed; top:70px; left:50%; transform:translateX(-50%) translateY(-14px); z-index:998;
@@ -818,12 +804,6 @@
   
   /* Make links inside chat look good */
   .chat-msg a { color: var(--sapphire); font-weight: 700; text-decoration: underline; }
-  @media screen and (max-width: 768px) {
-            .container {
-                width: 100%;
-                padding: 20px;
-            }
-        }
 </style>
 </head>
 <body>
@@ -981,7 +961,6 @@
     <a href="view_programmes.html">Programmes</a>
     <a href="why_us.html">Why Us</a>
     <a href="gallery.html">Gallery</a>
-    <a href="certification.html">Certification</a>
     <a href="partners.html">Partners</a>
     <a href="#pricing">Pricing</a>
     <a href="join_community.html">Community</a>
@@ -1124,8 +1103,6 @@
       <img src="images/child_dev_5.jpeg" alt="Event Moment">
       <img src="images/child_dev_6.jpeg" alt="Event Moment">
       <img src="images/child_dev_7.jpeg" alt="Event Moment">
-
-
     </div>
 
     <div class="ticker-group" aria-hidden="true">
@@ -1180,7 +1157,6 @@
       <img src="images/child_dev_5.jpeg" alt="Event Moment">
       <img src="images/child_dev_6.jpeg" alt="Event Moment">
       <img src="images/child_dev_7.jpeg" alt="Event Moment">
-
     </div>
     
   </div>
@@ -1217,7 +1193,7 @@
           <div class="stratum-node"></div>
           <div class="stratum-depth">Quartz Vein <span class="stratum-year">Milestone 03</span></div>
           <h3>Cohort-1 launches. Ignite-X ignites.</h3>
-          <p>We ran our first structured program: Cohort-1, a 30-student online internship where participants learned to analyze real local businesses, weigh the trade-offs behind an actual business decision, and sit down directly with practicing entrepreneurs to understand strategy from the inside. Cohort-1 closed with Ignite-X, an online hackathon that awarded real prize money and certificates to its winners.</p>
+          <p>We ran our first structured program: Cohort-1 (Online Internship), a 30-student online internship where participants learned to analyze real local businesses, weigh the trade-offs behind an actual business decision, and sit down directly with practicing entrepreneurs to understand strategy from the inside. Cohort-1 closed with Ignite-X, an online hackathon that awarded real prize money and certificates to its winners.</p>
         </div>
         <div class="stratum">
           <div class="stratum-node"></div>
@@ -1315,7 +1291,7 @@
             <path class="draw-path" d="M78 8V13M78 35V40M62 24H67M89 24H94M67.5 13.5L71 17M85 31L88.5 34.5M88.5 13.5L85 17M71 31L67.5 34.5"/>
           </svg>
         </div>
-        <span class="program-tag">Step 01</span>
+        <span class="program-tag">Program Type 01</span>
         <h3>Student Development Program (SDP)</h3>
         <p class="desc">Soft skills, tech skills, STEM &amp; STEAM foundations, and hands-on exposure to advanced technologies — built to take a student from curious to capable.</p>
         <ul class="program-list">
@@ -1335,7 +1311,7 @@
             <path class="draw-path" d="M35 60 L46 71 L68 46"/>
           </svg>
         </div>
-        <span class="program-tag">Step 02</span>
+        <span class="program-tag">Program Type 02</span>
         <h3>Job Readiness Program</h3>
         <p class="desc">The bridge from classroom skills to a real job offer — resume, interview, and workplace readiness built around actual hiring expectations.</p>
         <ul class="program-list">
@@ -1355,7 +1331,7 @@
             <path class="draw-path" d="M55 18 L38 55 L50 55 L43 85 L68 45 L55 45 Z" fill="var(--amber)" fill-opacity="0.18"/>
           </svg>
         </div>
-        <span class="program-tag">Step 03</span>
+        <span class="program-tag">Program Type 03</span>
         <h3>Hackathon / Ideathon</h3>
         <p class="desc">Time-boxed, high-pressure building — where SDP and Job Readiness skills get tested against a real problem statement and a room of judges.</p>
         <ul class="program-list">
@@ -1377,7 +1353,7 @@
             <path class="draw-path" d="M69 78C69 68 76 62 83 62C90 62 97 68 97 78"/>
           </svg>
         </div>
-        <span class="program-tag">Step 04</span>
+        <span class="program-tag">Program Type 04</span>
         <h3>Corporate Trainings</h3>
         <p class="desc">Custom upskilling workshops we bring directly into a company — tech, soft skills, and modern tools taught by people who actually use them.</p>
         <ul class="program-list">
@@ -1399,7 +1375,7 @@
             <path class="draw-path" d="M50 26L53 33L60 34L53 37L50 44L47 37L40 34L47 33Z"/>
           </svg>
         </div>
-        <span class="program-tag">Step 05</span>
+        <span class="program-tag">Program Type 05</span>
         <h3>Child Development Program</h3>
         <p class="desc">Soft-skills and passion-first foundations for younger students — helping kids discover what they're curious about before we ever talk about "careers."</p>
         <ul class="program-list">
@@ -1489,7 +1465,7 @@
       <div class="event-card reveal">
         <div class="media-frame js-slideshow" data-images="images/cohert_1.jpeg, images/cohert_2.jpeg, images/cohert_3.jpeg, images/cohert_4.jpeg, images/cohert_5.jpeg, images/cohert_6.jpeg, images/cohert_7.jpeg, images/cohert_8.jpeg, images/cohert_9.jpeg, images/cohert_10.jpeg, images/cohert_11.jpeg, images/cohert_12.jpeg, images/cohert_13.jpeg, images/cohert_14.jpeg, images/cohert_15.jpeg, images/cohert_16.jpeg, images/cohert_17.jpeg, images/cohert_18.jpeg"></div>
         <div class="event-info">
-          <h3>Cohort-1 Internship</h3>
+          <h3>Cohort-1 (Online Internship)</h3>
           <p>A structured 30-student online internship focusing on real-world business analysis and entrepreneurship development.</p>
           <span class="media-indicator"><span class="dot"></span>Auto-Slideshow</span>
         </div>
@@ -1557,7 +1533,6 @@
         <h4>Community Membership</h4>
         <div class="price-tag">Free</div>
         <ul>
-        
           <li>Invites to meetups &amp; founder talks</li>
           <li>Monthly newsletter &amp; opportunity alerts</li>
           <li>Early access to hackathon registrations</li>
@@ -1568,7 +1543,7 @@
       <div class="price-card featured surface reveal" style="transition-delay:.05s;">
         <span class="price-featured-badge">Most Popular</span>
         <span class="price-tier">Structured Program</span>
-        <h4>Cohort Internship</h4>
+        <h4>Cohort (Online Internship)</h4>
         <div class="price-tag">₹999 <small>/ cohort</small></div>
         <ul>
           <li>1:1 mentor pairing for the full cohort</li>
@@ -1659,7 +1634,7 @@
         <div class="newsletter-success" id="newsletterSuccess"><span>✓</span> You're on the list — we'll be in touch!</div>
       </div>
       <div>
-        <span class="sec-eyebrow" style="margin-bottom:14px; display:inline-flex;">Countdown to Cohort-2 kickoff</span>
+        <span class="sec-eyebrow" style="margin-bottom:14px; display:inline-flex;">Countdown to Cohort-2 (Internship) kickoff</span>
         <div class="countdown-row" id="countdownRow">
           <div class="countdown-cell"><div class="cd-num" id="cdDays">--</div><div class="cd-label">Days</div></div>
           <div class="countdown-cell"><div class="cd-num" id="cdHours">--</div><div class="cd-label">Hours</div></div>
@@ -1704,6 +1679,37 @@
   </div>
 </section>
 
+<!-- NEW DIRECT CONTACT SECTION -->
+<section class="contact-section" id="contact" style="background:var(--paper-2);">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-eyebrow" style="color:var(--teal);">Get in Touch</span>
+      <h2 class="sec-title">Direct Contact</h2>
+      <p class="sec-sub">Founders, partners, or students — prefer to talk directly? Reach out to us through the channels below without filling out an application.</p>
+    </div>
+    <div class="contact-grid reveal" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:24px;">
+      <div class="surface" style="padding:32px; display:flex; flex-direction:column; align-items:flex-start; gap:12px;">
+        <div class="icon-chip chip-emerald"><svg viewBox="0 0 24 24" style="color:var(--emerald);"><use href="#icon-letter"/></svg></div>
+        <h4 style="font-family:var(--font-display); font-size:1.1rem; font-weight:700;">Email Us</h4>
+        <p style="color:var(--ink-soft); font-size:0.9rem;">For partnerships, corporate trainings, and official inquiries.</p>
+        <a href="mailto:hiddengemssocietyngo@gmail.com" class="btn btn-ghost" style="margin-top:auto;">hiddengemssocietyngo@gmail.com</a>
+      </div>
+      <div class="surface" style="padding:32px; display:flex; flex-direction:column; align-items:flex-start; gap:12px;">
+        <div class="icon-chip chip-sapphire"><svg viewBox="0 0 24 24" style="color:var(--sapphire);"><use href="#icon-handshake"/></svg></div>
+        <h4 style="font-family:var(--font-display); font-size:1.1rem; font-weight:700;">WhatsApp / Call</h4>
+        <p style="color:var(--ink-soft); font-size:0.9rem;">Speak directly with our founding team for quick questions.</p>
+        <a href="https://wa.me/919494608408" target="_blank" class="btn btn-primary" style="margin-top:auto;">+91 94946 08408</a>
+      </div>
+      <div class="surface" style="padding:32px; display:flex; flex-direction:column; align-items:flex-start; gap:12px;">
+        <div class="icon-chip chip-amber"><svg viewBox="0 0 24 24" style="color:var(--amber);"><use href="#icon-pin"/></svg></div>
+        <h4 style="font-family:var(--font-display); font-size:1.1rem; font-weight:700;">Location</h4>
+        <p style="color:var(--ink-soft); font-size:0.9rem;">Currently operating and hosting events across Telangana, India.</p>
+        <span class="btn btn-ghost" style="margin-top:auto; pointer-events:none;">Telangana, IN</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section style="padding:0;" id="joinpartner">
   <div class="cta-split">
     <div class="blob blob-1" style="width:180px;height:180px;"></div>
@@ -1712,7 +1718,7 @@
       <span class="eyebrow cta-eyebrow">For Students &amp; Educators</span>
       <h2>Join the Community</h2>
       <p>Get access to hackathons, mentorship, internship pipelines, and the FDP cohort — wherever you're starting from.</p>
-      <a href="#" class="btn btn-emerald" onclick="openInterestModal('Join the Community'); return false;">Apply to Join →</a>
+      <a href="#" class="btn btn-emerald" id="applyJoinBtn" onclick="openInterestModal('Join the Community'); return false;">Apply to Join →</a>
       <svg class="cta-gem-watermark" viewBox="0 0 200 200"><path d="M100,25 L153,47 L153,153 L100,175 L47,153 L47,47 Z" fill="var(--emerald)" opacity="0.5"/></svg>
     </div>
     <div class="cta-half partner" id="partner">
@@ -1735,7 +1741,6 @@
       <a href="#journey">The Journey</a>
       <a href="#programmes">Programmes</a>
       <a href="#gallery">Gallery</a>
-      <a href="#certification">Certification</a>
       <a href="#partners">Partners</a>
       <a href="#pricing">Pricing</a>
       <a href="internship.html">Internships</a>
@@ -1753,8 +1758,6 @@
 <div class="milestone-toast" id="milestoneToast">
   <span class="m-icon">🏅</span><span id="milestoneText">Halfway through — nice pace!</span>
 </div>
-
-
 
 <button class="back-to-top" id="backToTop" aria-label="Back to top">
   <svg class="ring" viewBox="0 0 48 48"><circle class="ring-bg" cx="24" cy="24" r="21"/><circle class="ring-fg" id="ringFg" cx="24" cy="24" r="21" stroke-dasharray="132" stroke-dashoffset="132"/></svg>
@@ -1785,7 +1788,7 @@
     <button class="chat-close" id="chatbotClose">&times;</button>
   </div>
   <div class="chat-body" id="chatBody">
-    <div class="chat-msg bot">Hi there! 👋 I'm Gemmy. Ask me anything about our programs, internships, hackathons, or pricing!</div>
+    <div class="chat-msg bot">Hi there! 👋 I'm Gemmy. Ask me about our programs, pricing, or team!</div>
     
     <!-- The typing dots that hide/show automatically -->
     <div class="typing-indicator" id="typingIndicator">
@@ -1822,13 +1825,14 @@
         <textarea id="fieldMessage" rows="3" placeholder="Anything else we should know?"></textarea>
       </label>
       
-      <!-- ADDED SUCCESS MESSAGE -->
+      <!-- Success Notification Box -->
       <div id="interestSuccess" style="display:none; color:var(--emerald); font-weight:600; font-size:0.95rem; text-align:center; padding:12px; background:rgba(14,159,118,0.1); border-radius:8px; border: 1px solid var(--emerald); margin-bottom:14px;">
-        ✓ All information has been sent successfully!
+        ✓ Thank you! Your application has been submitted directly to our inbox.
       </div>
-      
 
-      
+      <div class="modal-actions">
+        <button type="submit" class="btn btn-primary" id="submitDirectBtn">Submit Application →</button>
+      </div>
     </form>
   </div>
 </div>
@@ -1856,8 +1860,8 @@
     hamburger.setAttribute('aria-expanded', String(isOpen));
     document.body.classList.toggle('menu-open', isOpen);
   }
-  hamburger.addEventListener('click', toggleMenu);
-  mobileOverlay.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+  if(hamburger) hamburger.addEventListener('click', toggleMenu);
+  if(mobileOverlay) mobileOverlay.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
   window.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeMenu(); });
   window.addEventListener('resize', () => { if(window.innerWidth > 860) closeMenu(); });
 
@@ -2005,24 +2009,10 @@
   });
 
   // ================================================================
-  // INTEREST MODAL — "notify the host" system
-  // No backend/server exists on a static HTML page, so true silent
-  // notifications aren't possible. Instead, submitting this form opens
-  // WhatsApp or the visitor's email app with the message pre-filled to
-  // YOUR number/email below — they just tap send.
-  //
-  // EDIT THESE TWO LINES WITH YOUR REAL CONTACT INFO:
-  const HOST_CONFIG = {
-    whatsappNumber: '919494608408', // country code + number, no + no spaces, e.g. 919876543210
-    email: 'hello@hiddengemssociety.com'
-  };
+  // INTEREST MODAL & FORMSUBMIT
   // ================================================================
-
   const interestModalOverlay = document.getElementById('interestModalOverlay');
   const interestTag = document.getElementById('interestTag');
-  const fieldName = document.getElementById('fieldName');
-  const fieldContact = document.getElementById('fieldContact');
-  const fieldMessage = document.getElementById('fieldMessage');
   const modalClose = document.getElementById('modalClose');
 
   function openInterestModal(label){
@@ -2043,40 +2033,67 @@
   }
   window.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeInterestModal(); });
 
-  function buildInterestMessage(){
-    const interest = interestModalOverlay?.dataset.interest || 'Hidden Gems Community';
-    const name = fieldName.value.trim();
-    const contact = fieldContact.value.trim();
-    const msg = fieldMessage.value.trim();
-    let text = `New interest via website\nInterested in: ${interest}\nName: ${name}\nContact: ${contact}`;
-    if(msg) text += `\nMessage: ${msg}`;
-    return text;
-  }
+  const RECIPIENT_EMAIL = "hello@hiddengemssocietyngo.com"; 
 
-  const sendWhatsAppBtn = document.getElementById('sendWhatsApp');
-  const sendEmailBtn = document.getElementById('sendEmail');
+  const interestForm = document.getElementById('interestForm');
+  const submitDirectBtn = document.getElementById('submitDirectBtn');
+  const interestSuccessMsg = document.getElementById('interestSuccess');
 
-  if(sendWhatsAppBtn){
-    sendWhatsAppBtn.addEventListener('click', () => {
-      if(!fieldName.value.trim() || !fieldContact.value.trim()){
-        alert('Please fill in your name and contact info first.');
+  if (interestForm) {
+    interestForm.addEventListener('submit', function (e) {
+      e.preventDefault(); 
+
+      const name = document.getElementById('fieldName').value.trim();
+      const contact = document.getElementById('fieldContact').value.trim();
+      const message = document.getElementById('fieldMessage').value.trim();
+      const interest = document.getElementById('interestTag')?.textContent || 'General Interest';
+
+      if (!name || !contact) {
+        alert('Please fill in your name and contact details.');
         return;
       }
-      const text = buildInterestMessage();
-      const url = `https://wa.me/${HOST_CONFIG.whatsappNumber}?text=${encodeURIComponent(text)}`;
-      window.open(url, '_blank');
-    });
-  }
-  if(sendEmailBtn){
-    sendEmailBtn.addEventListener('click', () => {
-      if(!fieldName.value.trim() || !fieldContact.value.trim()){
-        alert('Please fill in your name and contact info first.');
-        return;
-      }
-      const interest = interestModalOverlay?.dataset.interest || 'Hidden Gems Community';
-      const text = buildInterestMessage();
-      const subject = encodeURIComponent('New interest: ' + interest);
-      window.location.href = `mailto:${HOST_CONFIG.email}?subject=${subject}&body=${encodeURIComponent(text)}`;
+
+      const originalBtnText = submitDirectBtn.innerHTML;
+      submitDirectBtn.innerHTML = 'Sending...';
+      submitDirectBtn.disabled = true;
+
+      fetch(`https://formsubmit.co/ajax/${RECIPIENT_EMAIL}`, {
+        method: "POST",
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          "Interested In": interest,
+          "Full Name": name,
+          "Contact Info": contact,
+          "Message": message
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        submitDirectBtn.innerHTML = '✓ Submitted!';
+        if (interestSuccessMsg) interestSuccessMsg.style.display = 'block';
+
+        if (typeof fireConfetti === 'function') {
+          const rect = submitDirectBtn.getBoundingClientRect();
+          fireConfetti(rect.left + rect.width / 2, rect.top, 35);
+        }
+
+        setTimeout(() => {
+          submitDirectBtn.innerHTML = originalBtnText;
+          submitDirectBtn.disabled = false;
+          if (interestSuccessMsg) interestSuccessMsg.style.display = 'none';
+          interestForm.reset();
+          document.getElementById('interestModalOverlay')?.classList.remove('active');
+        }, 2500);
+      })
+      .catch(error => {
+        console.error('Error submitting form:', error);
+        alert('There was an issue sending your request. Please try again.');
+        submitDirectBtn.innerHTML = originalBtnText;
+        submitDirectBtn.disabled = false;
+      });
     });
   }
 
@@ -2152,6 +2169,7 @@
       setTimeout(() => piece.remove(), 3400);
     }
   }
+
   // ================================================================
   // MASCOT — "Gemmy"
   // ================================================================
@@ -2162,15 +2180,12 @@
     "Want to know more about our programs? Just ask! 💎"
   ];
 
-  // GEMMY CHATBOT LOGIC
-  // ================================================================
   const chatbotWindow = document.getElementById('chatbotWindow');
   const chatbotClose = document.getElementById('chatbotClose');
   const chatBody = document.getElementById('chatBody');
   const chatInput = document.getElementById('chatInput');
   const chatSend = document.getElementById('chatSend');
 
-  // Welcome bubble popup
   if(mascotBubble){
     setTimeout(() => {
       mascotBubble.textContent = "Hey! Need a hand? Chat with me! 💎";
@@ -2179,7 +2194,6 @@
     }, 1800);
   }
 
-  // Toggle Window
   if(mascotBtn && chatbotWindow){
     mascotBtn.addEventListener('click', () => {
       chatbotWindow.classList.toggle('open');
@@ -2188,50 +2202,59 @@
   }
   if(chatbotClose) chatbotClose.addEventListener('click', () => chatbotWindow.classList.remove('open'));
 
-  // Smart Keyword Brain
-  const botBrain = {
-    "internship": "Our Cohort Internship is a ₹999 structured program where you work on real business cases and get an MSME certificate. Click 'Apply Now' in the top banner!",
-    "hackathon": "Ignite-X is our flagship 48-hour hackathon! Winning teams get real prize money. We also host Ideathons for rapid problem-solving.",
-    "cost": "The Open Community is free! The Cohort Internship is ₹999, and the FDP is custom-quoted. 100% of funds are reinvested into the community.",
-    "fee": "The Open Community is free! The Cohort Internship is ₹999, and the FDP is custom-quoted. 100% of funds are reinvested into the community.",
-    "price": "The Open Community is free! The Cohort Internship is ₹999, and the FDP is custom-quoted. 100% of funds are reinvested into the community.",
-    "partner": "We love partnering with businesses! You can hire interns, mentor students, or sponsor events. Click 'Partner With Us' in the menu.",
-    "faculty": "Our Faculty Development Program (FDP) is a 3-day on-campus track covering AI, soft skills, and tech integration. Hit 'Request a Quote' in the Pricing section!",
-    "fdp": "Our Faculty Development Program (FDP) is a 3-day on-campus track covering AI, soft skills, and tech integration. Hit 'Request a Quote' in the Pricing section!",
-    "contact": "You can reach us directly by clicking the green WhatsApp icon on the screen, or emailing us at hello@hiddengemssociety.com.",
-    "hello": "Hi there! How can I help you unearth your potential today?",
-    "hi": "Hello! What would you like to know about Hidden Gems?"
-  };
+  // ================================================================
+  // GEMMY CHATBOT — now calls a secure serverless proxy (/api/chat)
+  // instead of matching keywords locally. The API key lives only on
+  // the server; see /api/chat.js. Update CHAT_ENDPOINT if you deploy
+  // the function at a different path or domain.
+  // ================================================================
+  const CHAT_ENDPOINT = "/api/chat";
+  const typingIndicator = document.getElementById('typingIndicator');
 
   function appendChatMsg(text, sender) {
     const msg = document.createElement('div');
     msg.className = `chat-msg ${sender}`;
     msg.textContent = text;
-    chatBody.appendChild(msg);
+    chatBody.insertBefore(msg, typingIndicator || null);
     chatBody.scrollTop = chatBody.scrollHeight;
   }
 
-  function handleChatSubmit() {
+  function setTyping(show) {
+    if (!typingIndicator) return;
+    typingIndicator.classList.toggle('active', show);
+    chatBody.scrollTop = chatBody.scrollHeight;
+  }
+
+  async function handleChatSubmit() {
     const text = chatInput.value.trim();
-    if(!text) return;
-    
+    if (!text) return;
+
     appendChatMsg(text, 'user');
     chatInput.value = '';
+    chatSend.disabled = true;
+    setTyping(true);
 
-    // Simulate thinking delay
-    setTimeout(() => {
-      let reply = "That's a great question! I'm still learning, but you can find most details on this page, or reach out to our team via WhatsApp for specifics!";
-      const lowerText = text.toLowerCase();
-      
-      // Check brain for keywords
-      for (const key in botBrain) {
-        if (lowerText.includes(key)) {
-          reply = botBrain[key];
-          break;
-        }
+    try {
+      const response = await fetch(CHAT_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: text })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        appendChatMsg(data.error || "Something went wrong. Please try again.", 'bot');
+      } else {
+        appendChatMsg(data.reply, 'bot');
       }
-      appendChatMsg(reply, 'bot');
-    }, 600);
+    } catch (err) {
+      console.error('Chat request failed:', err);
+      appendChatMsg("I couldn't reach the server. Please try again in a moment, or email hello@hiddengemssocietyngo.com.", 'bot');
+    } finally {
+      setTyping(false);
+      chatSend.disabled = false;
+    }
   }
 
   if(chatSend) chatSend.addEventListener('click', handleChatSubmit);
@@ -2262,7 +2285,6 @@
 
   // ================================================================
   // COUNTDOWN TIMER — Cohort-2 kickoff
-  // Edit this date once the real Cohort-2 start date is locked in.
   // ================================================================
   const COHORT_2_DATE = new Date('2026-09-15T09:00:00+05:30').getTime();
   const cdDays = document.getElementById('cdDays');
@@ -2307,7 +2329,7 @@
   });
 
   // ================================================================
-  // CURSOR SPARKLE TRAIL (desktop only, respects reduced motion)
+  // CURSOR SPARKLE TRAIL
   // ================================================================
   if(!reduceMotion && window.matchMedia('(pointer:fine)').matches){
     let lastSparkle = 0;
@@ -2329,19 +2351,6 @@
   }
 
   // ================================================================
-  // CONFETTI ON SUCCESSFUL INTEREST-FORM SEND
-  // ================================================================
-  [sendWhatsAppBtn, sendEmailBtn].forEach(btn => {
-    if(!btn) return;
-    btn.addEventListener('click', () => {
-      if(fieldName.value.trim() && fieldContact.value.trim()){
-        const rect = btn.getBoundingClientRect();
-        fireConfetti(rect.left + rect.width / 2, rect.top, 34);
-      }
-    });
-  });
-
-  // ================================================================
   // PAGE LOADER
   // ================================================================
   const pageLoader = document.getElementById('pageLoader');
@@ -2349,17 +2358,6 @@
     setTimeout(() => { if(pageLoader) pageLoader.classList.add('hide'); }, reduceMotion ? 0 : 500);
   });
   setTimeout(() => { if(pageLoader) pageLoader.classList.add('hide'); }, 3000); // safety fallback
-
-  // ================================================================
-  // WHATSAPP FLOATING BUBBLE
-  // ================================================================
-  const whatsappFloat = document.getElementById('whatsappFloat');
-  if(whatsappFloat){
-    whatsappFloat.addEventListener('click', () => {
-      const text = encodeURIComponent("Hi Hidden Gems! I'd like to know more about your programs.");
-      window.open(`https://wa.me/${HOST_CONFIG.whatsappNumber}?text=${text}`, '_blank');
-    });
-  }
 
   // ================================================================
   // MAGNETIC BUTTONS
@@ -2516,32 +2514,27 @@
           shareBtn.innerHTML = '✓ Link copied!';
           setTimeout(() => { shareBtn.innerHTML = original; }, 2000);
         }
-      }catch(e){ /* user cancelled share — no action needed */ }
+      }catch(e){ console.log("Share cancelled or not supported"); }
     });
   }
-  // ================================================================
-  // MAKE DUMMY BUTTONS SHOW "SENT" (IGNORES REAL LINKS)
-  // ================================================================
 
-  // 1. GLOBAL BUTTON "SENT" EFFECT (Only for buttons without real links)
+  // ================================================================
+  // MAKE DUMMY BUTTONS SHOW "SENT" (IGNORES REAL LINKS & SHARE BUTTON)
+  // ================================================================
   document.querySelectorAll('.btn').forEach(btn => {
     btn.addEventListener('click', function(e) {
       
-      // --- THE NEW CHECK ---
-      // Check if this button is actually a real link to another page
       const isLink = this.tagName.toLowerCase() === 'a';
       const href = this.getAttribute('href');
       
-      // If it is a real link (not empty, not just "#"), let it work normally and stop this script!
+      // If it is a real link (not empty, not just "#"), let it work normally
       if (isLink && href && href !== '#' && !href.startsWith('javascript:')) {
         return; 
       }
-      // ---------------------
 
-      // Exclude specific utility buttons that have their own custom logic below
-      if (this.id === 'themeToggle' || this.id === 'mascotBtn' || this.id === 'shareBtn' || this.id === 'sendWhatsApp' || this.id === 'sendEmail' || this.id === 'newsletterBtn' || this.id === 'resultCta') return;
+      // Explicitly EXCLUDE our interactive buttons so their native code works
+      if (this.id === 'themeToggle' || this.id === 'mascotBtn' || this.id === 'shareBtn' || this.id === 'submitDirectBtn' || this.id === 'newsletterBtn' || this.id === 'resultCta' || this.id === 'applyJoinBtn') return;
 
-      // Stop the dummy link from jumping to the top of the page
       e.preventDefault(); 
 
       const originalText = this.innerHTML;
@@ -2549,18 +2542,15 @@
       const originalColor = this.style.color;
       const originalBorder = this.style.borderColor;
 
-      // Change to Success State
       this.innerHTML = '✓ Info Sent!';
       this.style.backgroundColor = 'var(--emerald)';
       this.style.color = '#fff';
       this.style.borderColor = 'var(--emerald)';
-      this.style.pointerEvents = 'none'; // Prevent spam clicking
+      this.style.pointerEvents = 'none';
 
-      // Fire Confetti
       const rect = this.getBoundingClientRect();
       fireConfetti(rect.left + rect.width / 2, rect.top, 25);
 
-      // Revert after 2.5 seconds
       setTimeout(() => {
         this.innerHTML = originalText;
         this.style.backgroundColor = originalBg;
@@ -2571,78 +2561,6 @@
     });
   });
 
-  // 2. INTEREST MODAL SPECIFIC FEEDBACK (Form buttons)
-  const interestSuccessMsg = document.getElementById('interestSuccess');
-  [document.getElementById('sendWhatsApp'), document.getElementById('sendEmail')].forEach(btn => {
-    if(!btn) return;
-    
-    // Replace the old button with a fresh clone to remove previous click events
-    const newBtn = btn.cloneNode(true);
-    btn.parentNode.replaceChild(newBtn, btn);
-
-    newBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const fName = document.getElementById('fieldName').value.trim();
-      const fContact = document.getElementById('fieldContact').value.trim();
-
-      if(!fName || !fContact){
-        alert('Please fill in your name and contact info first.');
-        return;
-      }
-
-      // Show success states
-      const originalText = newBtn.innerHTML;
-      newBtn.innerHTML = '✓ Sent!';
-      if(interestSuccessMsg) interestSuccessMsg.style.display = 'block';
-
-      const rect = newBtn.getBoundingClientRect();
-      fireConfetti(rect.left + rect.width / 2, rect.top, 35);
-
-      // Reset and close after 3 seconds
-      setTimeout(() => {
-        newBtn.innerHTML = originalText;
-        if(interestSuccessMsg) interestSuccessMsg.style.display = 'none';
-        document.getElementById('interestModalOverlay').classList.remove('active');
-        document.getElementById('interestForm').reset(); // Clear the form
-      }, 3000);
-    });
-  });
-
-  // 3. NEWSLETTER BUTTON OVERRIDE (Form button)
-  const newsBtn = document.getElementById('newsletterBtn');
-  if(newsBtn) {
-    const newNewsBtn = newsBtn.cloneNode(true);
-    newsBtn.parentNode.replaceChild(newNewsBtn, newsBtn);
-
-    newNewsBtn.addEventListener('click', () => {
-      const input = document.getElementById('newsletterEmail');
-      if(!input.value.trim() || !input.value.includes('@')){
-        input.style.borderColor = 'var(--coral)';
-        input.focus();
-        return;
-      }
-      
-      input.style.borderColor = 'var(--emerald)';
-      const successEl = document.getElementById('newsletterSuccess');
-      if(successEl) {
-          successEl.innerHTML = '<span>✓</span> Info sent! You are on the list.';
-          successEl.classList.add('show');
-      }
-      newNewsBtn.innerHTML = '✓ Sent!';
-
-      const rect = newNewsBtn.getBoundingClientRect();
-      fireConfetti(rect.left + rect.width / 2, rect.top, 25);
-
-      // Revert states
-      setTimeout(() => {
-        newNewsBtn.innerHTML = 'Notify Me';
-        if(successEl) successEl.classList.remove('show');
-        input.value = '';
-        input.style.borderColor = 'var(--line)';
-      }, 3000);
-    });
-  }
 </script>
-
 </body>
 </html>
