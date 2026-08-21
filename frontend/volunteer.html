@@ -21,11 +21,12 @@
     --line: #E2E8F0;          
     --sapphire: #2563EB;      
     --emerald: #10B981;
-    --amber: #F59E0B;         
+    --amber: #F59E0B;
+    --amethyst: #6366F1;
+    --pink: #EC4899;         
     
     --font-display: 'Sora', sans-serif;
     --font-body: 'Inter', sans-serif;
-    --font-mono: 'JetBrains Mono', monospace;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -33,14 +34,32 @@
     background: var(--paper-2); color: var(--ink);
     font-family: var(--font-body); line-height: 1.6;
     display: flex; flex-direction: column; min-height: 100vh;
+    position: relative; overflow-x: hidden;
   }
   
   a { color: inherit; text-decoration: none; }
-  
+
+  /* --- AMBIENT BACKGROUND ANIMATIONS --- */
+  .bg-blob {
+    position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.15;
+    animation: float 10s ease-in-out infinite alternate; z-index: -1; pointer-events: none;
+  }
+  .blob-1 { top: -5%; left: -5%; width: 400px; height: 400px; background: var(--sapphire); }
+  .blob-2 { bottom: 10%; right: -5%; width: 350px; height: 350px; background: var(--amethyst); animation-delay: -5s; }
+  .blob-3 { top: 40%; left: 40%; width: 250px; height: 250px; background: var(--emerald); animation-delay: -2s; opacity: 0.1; }
+
+  @keyframes float {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(30px, -40px) scale(1.05); }
+    100% { transform: translate(-20px, 20px) scale(0.95); }
+  }
+
   /* --- NAV --- */
   .nav {
-    background: var(--card); border-bottom: 1px solid var(--line);
-    padding: 16px 32px; display: flex; justify-content: space-between; align-items: center;
+    background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line); padding: 16px 32px; 
+    display: flex; justify-content: space-between; align-items: center;
+    position: sticky; top: 0; z-index: 100;
   }
   .brand { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 800; font-size: 1.2rem; }
   .brand svg { width: 24px; height: 24px; color: var(--sapphire); }
@@ -55,51 +74,99 @@
   @media (max-width: 860px) { .container { grid-template-columns: 1fr; } }
 
   /* --- LEFT COLUMN: INFO --- */
-  .info-col h1 { font-family: var(--font-display); font-size: 2.8rem; font-weight: 800; line-height: 1.1; margin-bottom: 20px; letter-spacing: -0.02em; }
+  .info-col h1 { 
+    font-family: var(--font-display); font-size: 3rem; font-weight: 800; line-height: 1.1; 
+    margin-bottom: 20px; letter-spacing: -0.02em;
+    background: linear-gradient(135deg, var(--sapphire), var(--amethyst));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
   .info-col p { font-size: 1.1rem; color: var(--ink-soft); margin-bottom: 24px; }
+  
+  /* Staggered Animations for Skills */
   .skills-list { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 32px; }
   .skill-item {
     background: var(--card); border: 1px solid var(--line); padding: 16px;
     border-radius: 12px; font-weight: 600; display: flex; align-items: center; gap: 12px;
-    box-shadow: 0 4px 12px rgba(15,23,42,0.03);
+    box-shadow: 0 4px 12px rgba(15,23,42,0.03); opacity: 0;
+    animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
-  .skill-item span { font-size: 1.4rem; }
+  .skill-item:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(15,23,42,0.08); border-color: var(--sapphire); }
+  .skill-item span { font-size: 1.4rem; transition: transform 0.3s ease; }
+  .skill-item:hover span { transform: scale(1.2) rotate(5deg); }
+  
+  .skill-item:nth-child(1) { animation-delay: 0.1s; border-left: 3px solid var(--sapphire); }
+  .skill-item:nth-child(2) { animation-delay: 0.2s; border-left: 3px solid var(--emerald); }
+  .skill-item:nth-child(3) { animation-delay: 0.3s; border-left: 3px solid var(--amber); }
+  .skill-item:nth-child(4) { animation-delay: 0.4s; border-left: 3px solid var(--amethyst); }
+  .skill-item:nth-child(5) { animation-delay: 0.5s; border-left: 3px solid var(--pink); }
+  .skill-item:nth-child(6) { animation-delay: 0.6s; border-left: 3px solid var(--sapphire); }
+  .skill-item:nth-child(7) { animation-delay: 0.7s; border-left: 3px solid var(--emerald); }
+
+  @keyframes slideUpFade {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
   
   .note {
     margin-top: 32px; padding: 20px; background: rgba(37,99,235,0.08);
     border-left: 4px solid var(--sapphire); border-radius: 0 12px 12px 0;
     font-weight: 600; color: var(--sapphire); font-size: 0.95rem;
+    animation: slideUpFade 0.6s ease forwards 0.8s; opacity: 0;
   }
 
   /* --- RIGHT COLUMN: FORM --- */
   .form-card {
     background: var(--card); border: 1px solid var(--line); border-radius: 16px;
-    padding: 40px; box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.08);
+    padding: 40px; position: relative;
+    box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.08);
+    animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
+  /* Soft glow behind the form */
+  .form-card::before {
+    content: ''; position: absolute; inset: -2px; border-radius: 18px; z-index: -1;
+    background: linear-gradient(135deg, var(--sapphire), var(--emerald));
+    filter: blur(12px); opacity: 0.15;
+  }
+
   .form-card h2 { font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 24px; }
-  
   .form-group { margin-bottom: 20px; display: flex; flex-direction: column; gap: 8px; }
-  label { font-weight: 600; font-size: 0.9rem; color: var(--ink); }
+  label { font-weight: 600; font-size: 0.9rem; color: var(--ink); transition: color 0.2s; }
   
   input[type="text"], input[type="tel"], select, textarea {
     font-family: var(--font-body); font-size: 0.95rem; padding: 14px 16px;
     border-radius: 8px; border: 1px solid var(--line); background: var(--paper-2);
-    color: var(--ink); transition: all 0.2s ease; width: 100%;
+    color: var(--ink); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); width: 100%;
   }
+  
+  /* Form Focus Animations */
   input:focus, select:focus, textarea:focus {
     outline: none; border-color: var(--sapphire); background: var(--card);
-    box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+    box-shadow: 0 4px 12px rgba(37,99,235,0.15); transform: translateY(-2px);
   }
+  .form-group:focus-within label { color: var(--sapphire); }
+  
   textarea { resize: vertical; min-height: 100px; }
 
+  /* Animated Submit Button */
   .btn-submit {
-    background: var(--emerald); color: #fff; font-family: var(--font-body); font-weight: 600;
-    font-size: 1rem; padding: 16px; border-radius: 8px; border: none; cursor: pointer;
-    width: 100%; transition: all 0.3s ease; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
-    margin-top: 10px;
+    background: linear-gradient(135deg, var(--emerald), #059669); color: #fff; 
+    font-family: var(--font-body); font-weight: 700; font-size: 1.05rem; 
+    padding: 16px; border-radius: 8px; border: none; cursor: pointer;
+    width: 100%; transition: all 0.3s ease; 
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3); margin-top: 10px;
+    position: relative; overflow: hidden;
   }
-  .btn-submit:hover { background: #059669; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4); }
-  .btn-submit:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+  .btn-submit::after {
+    content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: shine 3s infinite;
+  }
+  @keyframes shine { 100% { left: 200%; } }
+  
+  .btn-submit:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4); }
+  .btn-submit:active { transform: translateY(0) scale(0.98); }
+  .btn-submit:disabled { opacity: 0.7; cursor: not-allowed; transform: none; animation: none; }
 
   /* Toast Notification */
   .toast {
@@ -108,11 +175,16 @@
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); z-index: 1000;
   }
   .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
-  .toast.success { background: #D1FAE5; color: #065F46; border: 1px solid #34D399; }
-  .toast.error { background: #FEE2E2; color: #991B1B; border: 1px solid #F87171; }
+  .toast.success { background: #D1FAE5; color: #065F46; border: 1px solid #34D399; box-shadow: 0 10px 25px rgba(16,185,129,0.2); }
+  .toast.error { background: #FEE2E2; color: #991B1B; border: 1px solid #F87171; box-shadow: 0 10px 25px rgba(239,68,68,0.2); }
 </style>
 </head>
 <body>
+
+<!-- Background Ambient Elements -->
+<div class="bg-blob blob-1"></div>
+<div class="bg-blob blob-2"></div>
+<div class="bg-blob blob-3"></div>
 
 <nav class="nav">
   <div class="brand">
@@ -195,13 +267,10 @@
 
 <div id="toast" class="toast">Message goes here</div>
 
-<script>
-  // 1. Initialize Supabase Client with your credentials
-  const SUPABASE_URL = 'https://lyrlppgledsvdznxnpxo.supabase.co';
-  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx5cmxwcGdsZWRzdmR6bnhucHhvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU4MDYxMTAsImV4cCI6MjEwMTM4MjExMH0.iYb76_f_QbBlYnHSjqOjWEF3VeI9r6ziEefPyIMF5SU';
-  const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+<!-- Import Supabase as a module so we can use your existing client -->
+<script type="module">
+  import { supabaseClient } from './supabase-client.js';
 
-  // 2. Form Submission Logic
   const form = document.getElementById('volunteerForm');
   const submitBtn = document.getElementById('submitBtn');
   const toast = document.getElementById('toast');
@@ -215,9 +284,8 @@
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     submitBtn.disabled = true;
-    submitBtn.textContent = 'Registering...';
+    submitBtn.innerHTML = 'Registering... <span style="display:inline-block; animation: spin 1s linear infinite;">⏳</span>';
 
-    // Gather data from inputs
     const volunteerData = {
       full_name: document.getElementById('fullName').value.trim(),
       volunteer_area: document.getElementById('volunteerArea').value,
@@ -228,8 +296,7 @@
     };
 
     try {
-      // 3. Insert into Supabase table named 'volunteers'
-      const { data, error } = await supabase
+      const { data, error } = await supabaseClient
         .from('volunteers')
         .insert([volunteerData]);
 
@@ -238,13 +305,18 @@
       showToast('🎉 Registration successful! Welcome to the team.', 'success');
       form.reset();
     } catch (error) {
-      console.error('Error submitting:', error);
+      console.error('Error submitting:', error.message);
       showToast('⚠️ Error submitting registration. Please try again.', 'error');
     } finally {
       submitBtn.disabled = false;
       submitBtn.textContent = 'Register as Volunteer 🚀';
     }
   });
+
+  // Adding a simple spin animation for the loading state dynamically
+  const style = document.createElement('style');
+  style.innerHTML = `@keyframes spin { 100% { transform: rotate(360deg); } }`;
+  document.head.appendChild(style);
 </script>
 
 </body>
