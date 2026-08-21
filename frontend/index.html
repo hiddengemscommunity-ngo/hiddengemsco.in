@@ -980,11 +980,14 @@
       <div>
         <span class="eyebrow">Student &amp; Faculty Growth Community</span>
         <h1>Every breakthrough starts <span class="mark">unpolished</span>.</h1>
+        <button class="btn btn-primary" onclick="openInterestModal('Join the Community');">Join the Community →</button>
+          <a href="#programmes" class="btn btn-ghost">View Programmes</a>
+          <a href="volunteer.html" class="btn btn-emerald">Volunteer With Us 🚀</a>
         <p class="hero-sub">Hidden Gems finds the raw potential in students and educators and puts real pressure behind it — hackathons, mentorship, and faculty programs that turn ideas into industry-ready output.</p>
         <div class="hero-actions">
           <a href="join_community.html" class="btn btn-primary">Join the Community →</a>
         </div>
-
+      
         <div class="stat-row">
           <div class="stat surface" style="--glow:rgba(14,159,118,0.2);">
             <div class="icon-chip chip-emerald"><svg viewBox="0 0 24 24" style="color:var(--emerald);"><use href="#icon-pair"/></svg></div>
@@ -1815,6 +1818,9 @@
     <h3>Let's get you connected</h3>
     <p class="modal-sub">Drop your details — we'll reach out directly.</p>
     <form id="interestForm">
+      <input type="text" name="_honey" style="display:none">
+      <input type="hidden" name="_captcha" value="false">
+      <label>Full Name
       <label>Full Name
         <input type="text" id="fieldName" required placeholder="Your name">
       </label>
@@ -2560,7 +2566,19 @@
       }, 2500);
     });
   });
+  document.addEventListener('contextmenu', event => event.preventDefault());
 
+<<<<<<< HEAD
+  document.addEventListener('keydown', function (event) {
+    if (event.keyCode === 123 || 
+       (event.ctrlKey && event.shiftKey && (event.keyCode === 73 || event.keyCode === 74)) || 
+       (event.ctrlKey && event.keyCode === 85)) {
+      event.preventDefault();
+    }
+  });
+
+=======
+>>>>>>> 089dd0a581eac38048d3d362e3a22f4d64726318
 </script>
 </body>
 </html>
