@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Volunteer Registration | Hidden Gems Community</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- Supabase CDN -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+  /* --- PREMIUM SaaS COLOR SYSTEM --- */
+  :root {
+    --paper: #FFFFFF;         
+    --paper-2: #F8FAFC;       
+    --wash-sapphire: #EFF6FF; 
+    --card: #FFFFFF;
+    --ink: #0F172A;           
+    --ink-soft: #475569;      
+    --line: #E2E8F0;          
+    --sapphire: #2563EB;      
+    --emerald: #10B981;
+    --amber: #F59E0B;         
+    
+    --font-display: 'Sora', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--paper-2); color: var(--ink);
+    font-family: var(--font-body); line-height: 1.6;
+    display: flex; flex-direction: column; min-height: 100vh;
+  }
+  
+  a { color: inherit; text-decoration: none; }
+  
+  /* --- NAV --- */
+  .nav {
+    background: var(--card); border-bottom: 1px solid var(--line);
+    padding: 16px 32px; display: flex; justify-content: space-between; align-items: center;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 800; font-size: 1.2rem; }
+  .brand svg { width: 24px; height: 24px; color: var(--sapphire); }
+  .back-link { font-weight: 600; color: var(--ink-soft); font-size: 0.95rem; transition: color 0.2s; }
+  .back-link:hover { color: var(--sapphire); }
+
+  /* --- SPLIT LAYOUT --- */
+  .container {
+    max-width: 1200px; margin: 40px auto; padding: 0 32px;
+    display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: start;
+  }
+  @media (max-width: 860px) { .container { grid-template-columns: 1fr; } }
+
+  /* --- LEFT COLUMN: INFO --- */
+  .info-col h1 { font-family: var(--font-display); font-size: 2.8rem; font-weight: 800; line-height: 1.1; margin-bottom: 20px; letter-spacing: -0.02em; }
+  .info-col p { font-size: 1.1rem; color: var(--ink-soft); margin-bottom: 24px; }
+  .skills-list { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 32px; }
+  .skill-item {
+    background: var(--card); border: 1px solid var(--line); padding: 16px;
+    border-radius: 12px; font-weight: 600; display: flex; align-items: center; gap: 12px;
+    box-shadow: 0 4px 12px rgba(15,23,42,0.03);
+  }
+  .skill-item span { font-size: 1.4rem; }
+  
+  .note {
+    margin-top: 32px; padding: 20px; background: rgba(37,99,235,0.08);
+    border-left: 4px solid var(--sapphire); border-radius: 0 12px 12px 0;
+    font-weight: 600; color: var(--sapphire); font-size: 0.95rem;
+  }
+
+  /* --- RIGHT COLUMN: FORM --- */
+  .form-card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 16px;
+    padding: 40px; box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.08);
+  }
+  .form-card h2 { font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 24px; }
+  
+  .form-group { margin-bottom: 20px; display: flex; flex-direction: column; gap: 8px; }
+  label { font-weight: 600; font-size: 0.9rem; color: var(--ink); }
+  
+  input[type="text"], input[type="tel"], select, textarea {
+    font-family: var(--font-body); font-size: 0.95rem; padding: 14px 16px;
+    border-radius: 8px; border: 1px solid var(--line); background: var(--paper-2);
+    color: var(--ink); transition: all 0.2s ease; width: 100%;
+  }
+  input:focus, select:focus, textarea:focus {
+    outline: none; border-color: var(--sapphire); background: var(--card);
+    box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+  }
+  textarea { resize: vertical; min-height: 100px; }
+
+  .btn-submit {
+    background: var(--emerald); color: #fff; font-family: var(--font-body); font-weight: 600;
+    font-size: 1rem; padding: 16px; border-radius: 8px; border: none; cursor: pointer;
+    width: 100%; transition: all 0.3s ease; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+    margin-top: 10px;
+  }
+  .btn-submit:hover { background: #059669; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4); }
+  .btn-submit:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+
+  /* Toast Notification */
+  .toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px);
+    padding: 16px 24px; border-radius: 8px; font-weight: 600; opacity: 0;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); z-index: 1000;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+  .toast.success { background: #D1FAE5; color: #065F46; border: 1px solid #34D399; }
+  .toast.error { background: #FEE2E2; color: #991B1B; border: 1px solid #F87171; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="brand">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8L8 3H16L20 8L12 21L4 8Z"/></svg>
+    Hidden Gems Community
+  </div>
+  <a href="index.html" class="back-link">← Back to Home</a>
+</nav>
+
+<div class="container">
+  <!-- LEFT COLUMN -->
+  <div class="info-col">
+    <span style="color:var(--sapphire); font-weight:700; letter-spacing:0.1em; text-transform:uppercase; font-size:0.8rem; margin-bottom:12px; display:block;">Calling for Volunteers</span>
+    <h1>Ready to build something real? 🔥</h1>
+    <p>Are you someone who loves creating, solving, designing, building, or experimenting? We’re looking for passionate volunteers to join the Hidden Gems Community ecosystem.</p>
+    
+    <div class="skills-list">
+      <div class="skill-item"><span>📱</span> Social Media</div>
+      <div class="skill-item"><span>🎥</span> Video & Photo</div>
+      <div class="skill-item"><span>💡</span> Entrepreneurship</div>
+      <div class="skill-item"><span>🧩</span> Problem Solving</div>
+      <div class="skill-item"><span>🎨</span> Art & Design</div>
+      <div class="skill-item"><span>💻</span> Tech & Non-Tech</div>
+      <div class="skill-item" style="grid-column: span 2; justify-content: center;"><span>🤖</span> AI & Technology</div>
+    </div>
+
+    <div class="note">
+      You don’t need to be an expert. Curiosity, creativity, and the willingness to contribute matter most to us!
+    </div>
+  </div>
+
+  <!-- RIGHT COLUMN: FORM -->
+  <div class="form-card">
+    <h2>Volunteer Registration Form</h2>
+    <form id="volunteerForm">
+      
+      <div class="form-group">
+        <label for="fullName">1. Full Name</label>
+        <input type="text" id="fullName" required placeholder="Enter your legal name">
+      </div>
+
+      <div class="form-group">
+        <label for="volunteerArea">2. Which area would you like to volunteer in?</label>
+        <select id="volunteerArea" required>
+          <option value="" disabled selected>Select an area...</option>
+          <option value="Social Media">Social Media</option>
+          <option value="Video & Photography">Video & Photography</option>
+          <option value="Entrepreneurship">Entrepreneurship</option>
+          <option value="Problem Solving">Problem Solving</option>
+          <option value="Art & Design">Art & Design</option>
+          <option value="Tech & Non-Tech">Tech & Non-Tech</option>
+          <option value="AI & Technology">AI & Technology</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="skillsExp">3. What skills or experience can you contribute?</label>
+        <textarea id="skillsExp" required placeholder="Briefly describe your background..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="whyJoin">4. Why would you like to join us?</label>
+        <textarea id="whyJoin" required placeholder="Tell us what drives you..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="contribution">5. How can you contribute to our community?</label>
+        <textarea id="contribution" required placeholder="Your ideas, creativity, or specific skills..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="contactNumber">6. WhatsApp / Contact Number 📱</label>
+        <input type="tel" id="contactNumber" required placeholder="+91 XXXXX XXXXX">
+      </div>
+
+      <button type="submit" class="btn-submit" id="submitBtn">Register as Volunteer 🚀</button>
+    </form>
+  </div>
+</div>
+
+<div id="toast" class="toast">Message goes here</div>
+
+<script>
+  // 1. Initialize Supabase Client with your credentials
+  const SUPABASE_URL = 'https://lyrlppgledsvdznxnpxo.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx5cmxwcGdsZWRzdmR6bnhucHhvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU4MDYxMTAsImV4cCI6MjEwMTM4MjExMH0.iYb76_f_QbBlYnHSjqOjWEF3VeI9r6ziEefPyIMF5SU';
+  const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  // 2. Form Submission Logic
+  const form = document.getElementById('volunteerForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const toast = document.getElementById('toast');
+
+  function showToast(message, type) {
+    toast.textContent = message;
+    toast.className = `toast show ${type}`;
+    setTimeout(() => toast.classList.remove('show'), 4000);
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Registering...';
+
+    // Gather data from inputs
+    const volunteerData = {
+      full_name: document.getElementById('fullName').value.trim(),
+      volunteer_area: document.getElementById('volunteerArea').value,
+      skills_experience: document.getElementById('skillsExp').value.trim(),
+      why_join: document.getElementById('whyJoin').value.trim(),
+      contribution: document.getElementById('contribution').value.trim(),
+      contact_number: document.getElementById('contactNumber').value.trim()
+    };
+
+    try {
+      // 3. Insert into Supabase table named 'volunteers'
+      const { data, error } = await supabase
+        .from('volunteers')
+        .insert([volunteerData]);
+
+      if (error) throw error;
+
+      showToast('🎉 Registration successful! Welcome to the team.', 'success');
+      form.reset();
+    } catch (error) {
+      console.error('Error submitting:', error);
+      showToast('⚠️ Error submitting registration. Please try again.', 'error');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Register as Volunteer 🚀';
+    }
+  });
+</script>
+
+</body>
+</html>
