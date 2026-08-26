@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TTT Session Registration | Hidden Gems Community</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+:root {
+  color-scheme: dark;
+  --bg: #060816;
+  --bg-soft: #10182d;
+  --text: #f7f7fb;
+  --muted: #a5adbf;
+  --accent: #7c5cff;
+  --accent-2: #30d0c4;
+  --accent-3: #ffae42;
+  --danger: #ff5c72;
+  --card: rgba(255, 255, 255, 0.08);
+  --card-strong: rgba(255, 255, 255, 0.14);
+  --border: rgba(255, 255, 255, 0.14);
+  --shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  color: var(--text);
+  background: radial-gradient(circle at top left, #14213d 0%, var(--bg) 45%, #060816 100%);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration: none; }
+
+.background-orb {
+  position: fixed; border-radius: 50%; filter: blur(90px);
+  opacity: 0.4; pointer-events: none; z-index: 0;
+}
+.orb-one { width: 260px; height: 260px; background: var(--accent); top: -70px; left: -60px; animation: float 9s ease-in-out infinite; }
+.orb-two { width: 320px; height: 320px; background: var(--accent-2); right: -80px; top: 20%; animation: float 11s ease-in-out infinite reverse; }
+.orb-three { width: 220px; height: 220px; background: var(--accent-3); left: 30%; bottom: -40px; animation: float 8s ease-in-out infinite; }
+
+/* ---------- TOPBAR ---------- */
+.topbar {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1rem 2rem; backdrop-filter: blur(18px);
+  background: rgba(5, 8, 20, 0.6);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.brand {
+  display: flex; align-items: center; gap: 0.7rem;
+  font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+  font-size: 1.1rem; letter-spacing: 0.02em;
+}
+.brand-icon {
+  display: inline-grid; place-items: center; width: 2rem; height: 2rem;
+  border-radius: 999px; background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: white; font-size: 0.78rem; font-weight: 800;
+}
+.nav-links { display: flex; gap: 1.3rem; color: var(--muted); font-weight: 500; font-size: 0.94rem; }
+.nav-links a:hover { color: #fff; }
+.menu-toggle { display: none; border: 0; background: transparent; padding: 0; cursor: pointer; }
+.menu-toggle span { display: block; width: 24px; height: 2px; background: white; margin: 5px 0; }
+
+main, .footer { position: relative; z-index: 1; }
+.hero, .section, .footer { width: min(1120px, calc(100% - 2rem)); margin: 0 auto; }
+
+/* ---------- HERO ---------- */
+.hero { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 2.2rem; align-items: center; padding: 4rem 0 3rem; }
+
+.eyebrow {
+  display: inline-block; padding: 0.4rem 0.7rem; border-radius: 999px; margin-bottom: 1rem;
+  background: rgba(255, 255, 255, 0.08); color: #bde9ff; font-size: 0.82rem;
+  text-transform: uppercase; letter-spacing: 0.18em; font-weight: 600;
+}
+.hero h1, .section h2 { font-family: 'Space Grotesk', sans-serif; line-height: 1.05; letter-spacing: -0.02em; }
+.hero h1 { font-size: clamp(2.3rem, 4vw, 3.8rem); margin: 0 0 1rem; }
+.hero h1 span { color: var(--accent-3); }
+.hero-text { font-size: 1.04rem; color: var(--muted); line-height: 1.7; max-width: 60ch; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 0.9rem; margin: 1.5rem 0 1.8rem; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  padding: 0.9rem 1.2rem; border-radius: 999px; font-weight: 700; font-size: 0.96rem;
+  border: none; cursor: pointer; font-family: inherit;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent-2)); box-shadow: 0 18px 28px rgba(124, 92, 255, 0.25); color: #fff; }
+.btn-secondary { background: rgba(255, 255, 255, 0.08); border: 1px solid var(--border); color: var(--text); }
+
+.stats-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.8rem; }
+.stat-card, .info-card, .glass { background: linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.06)); border: 1px solid var(--border); border-radius: 22px; box-shadow: var(--shadow); }
+.stat-card { padding: 1rem; }
+.stat-card strong { display: block; font-size: 1.2rem; margin-bottom: 0.2rem; }
+.stat-card span { color: var(--muted); font-size: 0.86rem; }
+.stat-card.urgent strong { color: var(--danger); }
+
+.hero-visual { position: relative; min-height: 420px; display: flex; align-items: center; }
+.hero-card {
+  padding: 2.2rem; overflow: hidden; animation: bob 4.8s ease-in-out infinite;
+  display: flex; flex-direction: column; justify-content: center; gap: 1.2rem;
+  min-height: 320px;
+}
+.hero-card .quote-mark { font-family: 'Space Grotesk', sans-serif; font-size: 3rem; color: var(--accent-2); line-height: 1; }
+.hero-card p.quote-text {
+  font-family: 'Space Grotesk', sans-serif; font-size: 1.35rem; font-weight: 600;
+  line-height: 1.4; margin: 0;
+}
+.hero-card .quote-attrib { color: var(--muted); font-size: 0.92rem; }
+
+.floating-badge {
+  position: absolute; padding: 0.7rem 0.9rem; border-radius: 999px;
+  background: rgba(10, 16, 28, 0.8); border: 1px solid var(--border);
+  box-shadow: var(--shadow); font-size: 0.86rem; font-weight: 600;
+  backdrop-filter: blur(12px); white-space: nowrap;
+}
+.badge-one { top: 6%; left: -4%; animation: drift 5s ease-in-out infinite; }
+.badge-two { bottom: 8%; right: -2%; animation: drift 5.3s ease-in-out infinite reverse; }
+
+/* ---------- SECTIONS ---------- */
+.section { padding: 2.8rem 0 0; }
+.section-heading { margin-bottom: 1.2rem; }
+.section h2 { margin: 0; font-size: clamp(1.5rem, 2.3vw, 2.1rem); }
+.section-sub { color: var(--muted); margin: 0.5rem 0 0; max-width: 60ch; }
+
+.cards-grid { display: grid; gap: 1rem; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.info-card { padding: 1.2rem; }
+.info-card .icon {
+  display: inline-grid; place-items: center; width: 2.2rem; height: 2.2rem;
+  border-radius: 12px; background: rgba(124, 92, 255, 0.16); color: var(--accent-2);
+  font-weight: 800; margin-bottom: 0.7rem; font-size: 0.95rem;
+}
+.info-card h3 { margin: 0 0 0.6rem; font-size: 1.06rem; }
+.info-card p { margin: 0; color: var(--muted); line-height: 1.65; }
+
+/* ---------- REGISTRATION FORM ---------- */
+.form-glass { padding: 2rem; max-width: 640px; margin: 0 auto; }
+.form-glass h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; margin: 0 0 0.3rem; }
+.form-sub { color: var(--muted); font-size: 0.92rem; margin: 0 0 1.6rem; }
+
+.form-group { margin-bottom: 1.15rem; display: flex; flex-direction: column; gap: 0.45rem; }
+label { font-weight: 600; font-size: 0.86rem; color: var(--text); }
+label .req { color: var(--accent-3); margin-left: 2px; }
+
+input[type="text"], input[type="email"], input[type="tel"], select, textarea {
+  font-family: 'Inter', sans-serif; font-size: 0.95rem; padding: 0.85rem 1rem;
+  border-radius: 12px; border: 1.5px solid var(--border);
+  background: rgba(255, 255, 255, 0.05); color: var(--text); width: 100%;
+  transition: border-color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+}
+input::placeholder, textarea::placeholder { color: var(--muted); }
+input:focus, select:focus, textarea:focus {
+  outline: none; border-color: var(--accent); background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 0 4px rgba(124, 92, 255, 0.18);
+}
+input:invalid:not(:placeholder-shown) { border-color: var(--danger); }
+textarea { resize: vertical; min-height: 78px; }
+
+select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'><path d='M1 1l6 6 6-6' stroke='%23a5adbf' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.6rem;
+}
+select option { background: var(--bg-soft); color: var(--text); }
+
+.btn-submit { width: 100%; margin-top: 0.4rem; position: relative; }
+.btn-submit .spinner {
+  width: 16px; height: 16px; border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff;
+  display: none; animation: spin 0.7s linear infinite;
+}
+.btn-submit.loading .spinner { display: inline-block; }
+.btn-submit:disabled { opacity: 0.65; cursor: not-allowed; transform: none !important; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.privacy-note { font-size: 0.78rem; color: var(--muted); text-align: center; margin-top: 1rem; }
+
+/* ---------- TOAST ---------- */
+.toast {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(120%);
+  padding: 15px 22px; border-radius: 14px; font-weight: 600; font-size: 0.92rem;
+  opacity: 0; transition: all 0.4s cubic-bezier(0.2,0.7,0.2,1);
+  box-shadow: var(--shadow); max-width: 90vw; z-index: 50;
+  background: rgba(16, 24, 45, 0.92); border: 1px solid var(--border);
+  backdrop-filter: blur(14px);
+}
+.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+.toast.success { border-color: var(--accent-2); color: #d7fff9; }
+.toast.error { border-color: var(--danger); color: #ffe1e5; }
+
+/* ---------- FOOTER ---------- */
+.footer { display: flex; justify-content: space-between; align-items: center; padding: 3rem 0 2.5rem; color: var(--muted); font-size: 0.9rem; flex-wrap: wrap; gap: 0.8rem; }
+
+/* ---------- SCROLL REVEAL ---------- */
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity 700ms ease, transform 700ms ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+@keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@keyframes drift { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
+
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; }
+  .cards-grid { grid-template-columns: 1fr; }
+  .hero-visual { min-height: 280px; }
+  .floating-badge { position: static; display: inline-block; margin-top: 0.6rem; }
+}
+
+@media (max-width: 700px) {
+  .topbar { padding: 1rem 1rem; }
+  .nav-links { display: none; }
+  .menu-toggle { display: block; }
+  .stats-grid { grid-template-columns: 1fr; }
+  .footer { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
+  .form-glass { padding: 1.4rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="background-orb orb-one"></div>
+<div class="background-orb orb-two"></div>
+<div class="background-orb orb-three"></div>
+
+<div class="topbar">
+  <div class="brand">
+    <span class="brand-icon">HG</span>
+    Hidden Gems Community
+  </div>
+  <nav class="nav-links">
+    <a href="#details">Details</a>
+    <a href="#learn">What You'll Learn</a>
+    <a href="#register">Register</a>
+  </nav>
+  <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+
+<main>
+  <section class="hero">
+    <div>
+      <span class="eyebrow">Train the Trainer · Live Session</span>
+      <h1>Presentation <span>Skills</span> that command a room</h1>
+      <p class="hero-text">Learn how to present yourself with confidence, online and offline, and pick up the delivery habits that separate a good trainer from a forgettable one.</p>
+      <div class="hero-actions">
+        <a href="#register" class="btn btn-primary">Register now</a>
+        <a href="#learn" class="btn btn-secondary">See what you'll learn</a>
+      </div>
+      <div class="stats-grid" id="details">
+        <div class="stat-card">
+          <strong>30 Aug, 10–11 AM</strong>
+          <span>Date &amp; time</span>
+        </div>
+        <div class="stat-card">
+          <strong>Google Meet</strong>
+          <span>Platform · Certificate included</span>
+        </div>
+        <div class="stat-card urgent">
+          <strong>Closes 29 Aug</strong>
+          <span>Registration deadline</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="glass hero-card">
+        <span class="quote-mark">“</span>
+        <p class="quote-text">Your content may be good. But your presentation decides the impact.</p>
+        <span class="quote-attrib">— Hidden Gems Community</span>
+      </div>
+      <div class="floating-badge badge-one">🎓 Certificate included</div>
+      <div class="floating-badge badge-two">⏳ Limited seats</div>
+    </div>
+  </section>
+
+  <section class="section reveal" id="learn">
+    <div class="section-heading">
+      <h2>What you'll learn</h2>
+      <p class="section-sub">A focused hour built for people who train, teach, or present — in any room, virtual or physical.</p>
+    </div>
+    <div class="cards-grid">
+      <div class="info-card">
+        <span class="icon">01</span>
+        <h3>Confident presence</h3>
+        <p>How to present yourself with confidence and build a professional trainer presence people trust from the first minute.</p>
+      </div>
+      <div class="info-card">
+        <span class="icon">02</span>
+        <h3>Online delivery</h3>
+        <p>What changes when the room is a screen — pacing, engagement, and presenting effectively in online sessions.</p>
+      </div>
+      <div class="info-card">
+        <span class="icon">03</span>
+        <h3>Offline delivery</h3>
+        <p>Presenting effectively in offline and classroom sessions, and reading a live room while you speak.</p>
+      </div>
+      <div class="info-card">
+        <span class="icon">04</span>
+        <h3>Audience engagement</h3>
+        <p>Practical ways to improve your delivery and keep an audience engaged from open to close.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal" id="register">
+    <div class="section-heading">
+      <h2>Secure your spot</h2>
+      <p class="section-sub">Takes less than a minute. Seats are limited.</p>
+    </div>
+
+    <div class="glass form-glass">
+      <h3>Registration form</h3>
+      <p class="form-sub">Fields marked with <span style="color:var(--accent-3)">*</span> are required.</p>
+
+      <form id="tttForm" novalidate>
+        <div class="form-group">
+          <label for="fullName">Full name<span class="req">*</span></label>
+          <input type="text" id="fullName" required placeholder="Enter your name" autocomplete="name">
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email address<span class="req">*</span></label>
+          <input type="email" id="email" required placeholder="you@email.com" autocomplete="email">
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone / WhatsApp number<span class="req">*</span></label>
+          <input type="tel" id="phone" required placeholder="+91 XXXXX XXXXX" autocomplete="tel">
+        </div>
+
+        <div class="form-group">
+          <label for="experience">Eligibility / experience level<span class="req">*</span></label>
+          <select id="experience" required>
+            <option value="" disabled selected>Select your experience...</option>
+            <option value="Fresher (Willing to start career)">Fresher (Willing to start career)</option>
+            <option value="1-2 years experience">1-2 years experience</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="expectations">What do you hope to learn from this session? <span style="font-weight:500; color:var(--muted);">(Optional)</span></label>
+          <textarea id="expectations" placeholder="Share your expectations..."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-submit" id="submitBtn">
+          <span class="spinner"></span>
+          <span class="btn-label">Register now</span>
+        </button>
+        <p class="privacy-note">We'll only use these details to run this session and send your certificate.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <span>© 2026 Hidden Gems Community</span>
+  <a href="index.html">← Back to home</a>
+</footer>
+
+<div id="toast" class="toast" role="status" aria-live="polite">Message goes here</div>
+
+<script>
+  // ---------- Supabase ----------
+  // Named `sb` (not `supabase`) to avoid shadowing the global `supabase`
+  // object exported by the CDN script.
+  const SUPABASE_URL = 'https://lyrlppgledsvdznxnpxo.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx5cmxwcGdsZWRzdmR6bnhucHhvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU4MDYxMTAsImV4cCI6MjEwMTM4MjExMH0.iYb76_f_QbBlYnHSjqOjWEF3VeI9r6ziEefPyIMF5SU';
+  const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  const form = document.getElementById('tttForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const btnLabel = submitBtn.querySelector('.btn-label');
+  const toast = document.getElementById('toast');
+  let toastTimer = null;
+
+  function showToast(message, type = 'success') {
+    clearTimeout(toastTimer);
+    toast.textContent = message;
+    toast.className = `toast show ${type}`;
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 4200);
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.classList.add('loading');
+    btnLabel.textContent = 'Registering...';
+
+    const regData = {
+      full_name: document.getElementById('fullName').value.trim(),
+      email: document.getElementById('email').value.trim(),
+      phone_number: document.getElementById('phone').value.trim(),
+      experience_level: document.getElementById('experience').value,
+      expectations: document.getElementById('expectations').value.trim()
+    };
+
+    try {
+      const { error } = await sb.from('ttt_registrations').insert([regData]);
+      if (error) throw error;
+      showToast('🎉 Registration successful! See you on August 30th.', 'success');
+      form.reset();
+    } catch (error) {
+      console.error(error);
+      showToast('Something went wrong. Please try again.', 'error');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.classList.remove('loading');
+      btnLabel.textContent = 'Register now';
+    }
+  });
+
+  // ---------- Scroll reveal ----------
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach((el) => observer.observe(el));
+
+  // ---------- Mobile menu ----------
+  const menuToggle = document.getElementById('menuToggle');
+  const navLinks = document.querySelector('.nav-links');
+  menuToggle.addEventListener('click', () => {
+    const isOpen = navLinks.style.display === 'flex';
+    navLinks.style.display = isOpen ? 'none' : 'flex';
+    navLinks.style.flexDirection = 'column';
+    navLinks.style.position = 'absolute';
+    navLinks.style.top = '100%';
+    navLinks.style.right = '1rem';
+    navLinks.style.background = 'rgba(5, 8, 20, 0.95)';
+    navLinks.style.border = '1px solid var(--border, rgba(255,255,255,0.14))';
+    navLinks.style.borderRadius = '12px';
+    navLinks.style.padding = '1rem 1.3rem';
+  });
+</script>
+</body>
+</html>
