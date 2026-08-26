@@ -804,6 +804,171 @@
   
   /* Make links inside chat look good */
   .chat-msg a { color: var(--sapphire); font-weight: 700; text-decoration: underline; }
+
+  /* ---------- HIDDEN GEMS HUB ---------- */
+  .hub-section{
+    background:linear-gradient(180deg, var(--paper), var(--wash-sapphire));
+  }
+  .hub-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:22px;
+  }
+  .hub-card{
+    padding:28px;
+    --glow:rgba(46,99,224,0.16);
+  }
+  .hub-icon{
+    width:52px;height:52px;border-radius:15px;
+    display:flex;align-items:center;justify-content:center;
+    background:rgba(46,99,224,0.1);
+    font-size:1.45rem;
+  }
+  .hub-tag{
+    font-family:var(--font-mono);
+    font-size:.7rem;font-weight:700;text-transform:uppercase;
+    letter-spacing:.07em;color:var(--sapphire);
+    margin-top:18px;
+  }
+  .hub-links{
+    display:flex;flex-direction:column;gap:9px;margin-top:14px;
+  }
+  .hub-link{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:12px 14px;border:1px solid var(--line);border-radius:12px;
+    background:var(--paper);color:var(--ink);
+    font-weight:600;font-size:.9rem;
+    transition:transform .2s ease,border-color .2s ease,background .2s ease;
+  }
+  .hub-link:hover{
+    transform:translateX(4px);
+    border-color:var(--sapphire);
+    background:var(--card);
+  }
+  .hub-arrow{color:var(--sapphire);font-size:1.1rem;flex-shrink:0}
+  @media (max-width:760px){
+    .hub-grid{grid-template-columns:1fr}
+    .hub-card{padding:22px}
+  }
+
+
+  /* ---------- DARK MODE TEXT READABILITY FIX ---------- */
+  [data-theme="dark"] .hub-section,
+  body.dark .hub-section {
+    color: var(--ink);
+  }
+
+  [data-theme="dark"] .hub-card,
+  body.dark .hub-card {
+    color: #f5f7fb;
+  }
+
+  [data-theme="dark"] .hub-card .hub-tag,
+  body.dark .hub-card .hub-tag {
+    color: #8db4ff;
+  }
+
+  [data-theme="dark"] .hub-card .hub-link,
+  body.dark .hub-card .hub-link {
+    color: #f5f7fb !important;
+    background: rgba(255,255,255,0.045);
+    border-color: rgba(255,255,255,0.16);
+  }
+
+  [data-theme="dark"] .hub-card .hub-link-text,
+  body.dark .hub-card .hub-link-text {
+    color: #ffffff !important;
+    opacity: 1 !important;
+  }
+
+  [data-theme="dark"] .hub-card .hub-arrow,
+  body.dark .hub-card .hub-arrow {
+    color: #9fc1ff !important;
+  }
+
+  [data-theme="dark"] .hub-card .hub-link:hover,
+  body.dark .hub-card .hub-link:hover {
+    color: #ffffff !important;
+    border-color: #8db4ff;
+    background: rgba(141,180,255,0.10);
+  }
+
+  /* Make muted text across the new Hub readable in both themes */
+  .hub-card .hub-link-text {
+    color: var(--ink);
+    opacity: 1;
+  }
+
+  /* Prevent inherited low-opacity/muted rules from hiding Hub names */
+  .hub-card a,
+  .hub-card a span {
+    opacity: 1;
+  }
+
+
+  [data-theme="dark"] .hub-section .sec-title,
+  body.dark .hub-section .sec-title {
+    color: #ffffff !important;
+  }
+
+  [data-theme="dark"] .hub-section .sec-sub,
+  body.dark .hub-section .sec-sub {
+    color: #d7dce6 !important;
+    opacity: 1 !important;
+  }
+
+
+  /* ---------- MAIN NAV VISIBILITY FIX ---------- */
+  .navlinks > a {
+    color: var(--ink) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .navlinks > a:hover,
+  .navlinks > a:focus {
+    color: var(--sapphire) !important;
+    opacity: 1 !important;
+  }
+
+  [data-theme="dark"] .navlinks > a,
+  body.dark .navlinks > a {
+    color: #ffffff !important;
+  }
+
+  [data-theme="dark"] .navlinks > a:hover,
+  [data-theme="dark"] .navlinks > a:focus,
+  body.dark .navlinks > a:hover,
+  body.dark .navlinks > a:focus {
+    color: #a9c7ff !important;
+  }
+
+  /* Keep important section CTA text bright and readable */
+  .btn, .cta, .announce-cta {
+    opacity: 1 !important;
+  }
+
+  [data-theme="dark"] .btn,
+  [data-theme="dark"] .cta,
+  [data-theme="dark"] .announce-cta,
+  body.dark .btn,
+  body.dark .cta,
+  body.dark .announce-cta {
+    color: #ffffff !important;
+  }
+
+  /* On smaller screens, allow the navigation to scroll instead of hiding names */
+  @media (max-width: 900px) {
+    .navlinks {
+      overflow-x: auto;
+      scrollbar-width: thin;
+      max-width: 100%;
+      white-space: nowrap;
+    }
+  }
+
 </style>
 </head>
 <body>
@@ -924,11 +1089,11 @@
 </defs>
 </svg>
 
-<div class="announce-bar" id="announceBar">
-  <div class="wrap announce-inner">
-    <span>🚀 <strong>We're Hiring Interns</strong> — join the team building Hidden Gems Society</span>
-    <a href="internship.html" class="announce-cta" style="text-decoration:none; display:inline-block;">Apply now →</a>
-  </div>
+<div class="announce-bar" id="announceBar"> 
+  <div class="wrap announce-inner"> 
+    <span>🎙️ <strong>Upcoming Event:</strong> TTT Session on Presentation Skills (Aug 30, 2026)</span> 
+    <a href="ttt-registration.html" class="announce-cta" style="text-decoration:none; display:inline-block;">Register Now →</a> 
+  </div> 
 </div>
 
 <nav class="nav" id="nav">
@@ -938,13 +1103,11 @@
       Hidden Gems
     </div>
     <div class="navlinks">
-      <a href="#journey">The Journey</a>
-      <a href="#programmes">Programmes</a>
+      <a href="#journey">Journey</a>
+      <a href="#programs">Programs</a>
       <a href="#why-us">Why Us</a>
-      <a href="#gallery">Gallery</a>
-      <a href="#partners">Partners</a>
-      <a href="#pricing">Pricing</a>
-    </div>
+      <a href="#hub">Hub</a>
+</div>
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
       <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5V5M12 19V21.5M4.2 4.2L6 6M18 18L19.8 19.8M2.5 12H5M19 12H21.5M4.2 19.8L6 18M18 6L19.8 4.2"/></svg>
     </button>
@@ -957,12 +1120,7 @@
 
 <div class="mobile-overlay" id="mobileOverlay">
   <nav class="mobile-links" aria-label="Mobile">
-    <a href="see_journey.html">The Journey</a>
-    <a href="view_programmes.html">Programmes</a>
-    <a href="why_us.html">Why Us</a>
-    <a href="gallery.html">Gallery</a>
     <a href="partners.html">Partners</a>
-    <a href="#pricing">Pricing</a>
     <a href="join_community.html">Community</a>
   </nav>
   <div class="mobile-foot">
@@ -981,13 +1139,9 @@
         <span class="eyebrow">Student &amp; Faculty Growth Community</span>
         <h1>Every breakthrough starts <span class="mark">unpolished</span>.</h1>
         <button class="btn btn-primary" onclick="openInterestModal('Join the Community');">Join the Community →</button>
-          <a href="#programmes" class="btn btn-ghost">View Programmes</a>
           <a href="volunteer.html" class="btn btn-emerald">Volunteer With Us 🚀</a>
         <p class="hero-sub">Hidden Gems finds the raw potential in students and educators and puts real pressure behind it — hackathons, mentorship, and faculty programs that turn ideas into industry-ready output.</p>
-        <div class="hero-actions">
-          <a href="join_community.html" class="btn btn-primary">Join the Community →</a>
-        </div>
-      
+        
         <div class="stat-row">
           <div class="stat surface" style="--glow:rgba(14,159,118,0.2);">
             <div class="icon-chip chip-emerald"><svg viewBox="0 0 24 24" style="color:var(--emerald);"><use href="#icon-pair"/></svg></div>
@@ -1734,18 +1888,86 @@
   </div>
 </section>
 
-<footer>
+
+  <!-- ---------- HIDDEN GEMS HUB ---------- -->
+  <section class="hub-section" id="hub">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="sec-eyebrow">Everything in one place</span>
+        <h2 class="sec-title">Hidden Gems Hub</h2>
+        <p class="sec-sub">All registrations, applications, events, programs, partner links and other important actions — organized in one easy-to-find place.</p>
+      </div>
+      <div class="hub-grid">
+        
+      <div class="surface hub-card reveal">
+        <div class="hub-icon">📝</div>
+        <div class="hub-tag">Registrations &amp; Applications</div>
+        <div class="hub-links">
+          <a class="hub-link" href="ttt-registration.html">
+              <span class="hub-link-text">Register Now →</span>
+              <span class="hub-arrow">→</span>
+            </a><a class="hub-link" href="join_community.html">
+              <span class="hub-link-text">Community</span>
+              <span class="hub-arrow">→</span>
+            </a><a class="hub-link" href="join_program.html">
+              <span class="hub-link-text">Join This Program →</span>
+              <span class="hub-arrow">→</span>
+            </a><a class="hub-link" href="apply_cohort.html">
+              <span class="hub-link-text">Apply Now →</span>
+              <span class="hub-arrow">→</span>
+            </a><a class="hub-link" href="internship.html">
+              <span class="hub-link-text">Internships</span>
+              <span class="hub-arrow">→</span>
+            </a>
+        </div>
+      </div>
+      <div class="surface hub-card reveal">
+        <div class="hub-icon">🎓</div>
+        <div class="hub-tag">Programs &amp; Training</div>
+        <div class="hub-links">
+          <a class="hub-link" href="view_programmes.html">
+              <span class="hub-link-text">Programmes</span>
+              <span class="hub-arrow">→</span>
+            </a>
+        </div>
+      </div>
+      <div class="surface hub-card reveal">
+        <div class="hub-icon">🤝</div>
+        <div class="hub-tag">Partners &amp; Collaboration</div>
+        <div class="hub-links">
+          <a class="hub-link" href="partner_with_us.html">
+              <span class="hub-link-text">Partner With Us →</span>
+              <span class="hub-arrow">→</span>
+            </a><a class="hub-link" href="partners.html">
+              <span class="hub-link-text">Partners</span>
+              <span class="hub-arrow">→</span>
+            </a>
+        </div>
+      </div>
+      <div class="surface hub-card reveal">
+        <div class="hub-icon">🔗</div>
+        <div class="hub-tag">Other Links</div>
+        <div class="hub-links">
+            </a><a class="hub-link" href="volunteer.html">
+              <span class="hub-link-text">Volunteer With Us 🚀</span>
+              <span class="hub-arrow">→</span>
+            </a><a class="hub-link" href="request_quote.html">
+              <span class="hub-link-text">Request a Quote →</span>
+              <span class="hub-arrow">→</span>
+            </a>
+        </div>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
   <div class="wrap">
     <div class="brand" style="font-size:1rem;">
       <span class="icon" style="color:var(--sapphire);"><svg viewBox="0 0 24 24" width="18" height="18"><use href="#icon-gem"/></svg></span>
       Hidden Gems
     </div>
     <div class="foot-links">
-      <a href="#journey">The Journey</a>
-      <a href="#programmes">Programmes</a>
-      <a href="#gallery">Gallery</a>
-      <a href="#partners">Partners</a>
-      <a href="#pricing">Pricing</a>
       <a href="internship.html">Internships</a>
     </div>
     <div class="share-row">
@@ -2265,28 +2487,7 @@
   if(chatSend) chatSend.addEventListener('click', handleChatSubmit);
   if(chatInput) chatInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') handleChatSubmit(); });
   
-  // ================================================================
-  // NEWSLETTER / WAITLIST MINI-FORM
-  // ================================================================
-  const newsletterBtn = document.getElementById('newsletterBtn');
-  const newsletterEmail = document.getElementById('newsletterEmail');
-  const newsletterSuccess = document.getElementById('newsletterSuccess');
-  if(newsletterBtn){
-    newsletterBtn.addEventListener('click', () => {
-      const val = (newsletterEmail?.value || '').trim();
-      const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
-      if(!validEmail){
-        newsletterEmail.style.borderColor = 'var(--coral)';
-        newsletterEmail.focus();
-        return;
-      }
-      newsletterEmail.style.borderColor = 'var(--emerald)';
-      newsletterSuccess?.classList.add('show');
-      const rect = newsletterBtn.getBoundingClientRect();
-      fireConfetti(rect.left, rect.top, 26);
-      newsletterEmail.value = '';
-    });
-  }
+
 
   // ================================================================
   // COUNTDOWN TIMER — Cohort-2 kickoff
