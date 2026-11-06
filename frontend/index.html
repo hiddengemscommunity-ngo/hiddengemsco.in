@@ -277,6 +277,12 @@
   .sec-title{ font-family:var(--font-display); font-size:clamp(1.8rem,3.4vw,2.7rem); font-weight:700; margin-top:10px; letter-spacing:-0.01em; }
   .sec-sub{ margin-top:14px; color:var(--ink-soft); font-size:1.02rem; max-width:56ch; }
 
+  /* ---------- HGC EXPERTS ---------- */
+  .experts-intro{ background:var(--paper-2); }
+  .experts-intro-card{ padding:clamp(28px,5vw,56px); text-align:center; }
+  .experts-intro .sec-head{ max-width:760px; margin:0 auto 28px; }
+  .experts-intro .sec-sub{ margin-left:auto; margin-right:auto; }
+
   /* ---------- JOURNEY ---------- */
   .journey{ background:var(--wash-sapphire); }
   .strata-wrap{ display:grid; grid-template-columns:56px 1fr; gap:0 36px; }
@@ -1107,6 +1113,7 @@
       <a href="#programs">Programs</a>
       <a href="#why-us">Why Us</a>
       <a href="#hub">Hub</a>
+      <a href="experts.html" target="_blank" rel="noopener noreferrer">HGC Experts</a>
 </div>
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
       <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5V5M12 19V21.5M4.2 4.2L6 6M18 18L19.8 19.8M2.5 12H5M19 12H21.5M4.2 19.8L6 18M18 6L19.8 4.2"/></svg>
@@ -1122,6 +1129,7 @@
   <nav class="mobile-links" aria-label="Mobile">
     <a href="partners.html">Partners</a>
     <a href="join_community.html">Community</a>
+    <a href="experts.html" target="_blank" rel="noopener noreferrer">HGC Experts</a>
   </nav>
   <div class="mobile-foot">
     <a href="partner_with_us.html" class="btn btn-primary">Partner With Us →</a>
@@ -1204,7 +1212,15 @@
     </div>
   </div>
 </header>
-
+<!-- INCUBATION / INDUCTION BANNER -->
+<section style="padding: 40px 0; background: linear-gradient(135deg, var(--sapphire), var(--amethyst)); color: #fff; text-align: center; border-bottom: 1px solid var(--line);">
+  <div class="wrap" style="max-width: 800px; padding: 0 20px;">
+    <span style="font-family: var(--font-mono); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 100px; display: inline-block; margin-bottom: 16px;">New Initiative</span>
+    <h2 style="font-family: var(--font-display); font-size: 2.2rem; margin-bottom: 16px; font-weight: 700; line-height: 1.2;">HGC Induction Hub</h2>
+    <p style="font-size: 1.05rem; opacity: 0.9; margin-bottom: 24px; line-height: 1.6;">An incubation and collaboration space for entrepreneurs. Got a project? Need mentorship, a team, or tech resources? Come build with us.</p>
+    <a href="induction.html" style="background: #fff; color: var(--ink); padding: 12px 28px; border-radius: 100px; font-family: var(--font-display); font-weight: 700; text-decoration: none; display: inline-block; box-shadow: 0 10px 20px rgba(0,0,0,0.15); transition: transform 0.2s;">Enter the Hub →</a>
+  </div>
+</section>
 <div class="ticker" aria-label="Event Image Gallery">
   <div class="ticker-track" id="tickerTrack">
     
@@ -1544,6 +1560,19 @@
         <a href="join_program.html" class="btn btn-emerald">Join This Program →</a>
       </div>
 
+    </div>
+  </div>
+</section>
+
+<section class="experts-intro" id="experts">
+  <div class="wrap">
+    <div class="surface experts-intro-card reveal">
+      <div class="sec-head">
+        <span class="sec-eyebrow">Learn and build together</span>
+        <h2 class="sec-title">HGC Experts: What We Provide</h2>
+        <p class="sec-sub">Connect with peer mentors, explore practical skills, and build projects together with the Hidden Gems community.</p>
+      </div>
+      <a href="experts.html" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Browse Expert Directory →</a>
     </div>
   </div>
 </section>
